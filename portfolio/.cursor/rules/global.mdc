@@ -1,0 +1,73 @@
+---
+description: 
+globs: 
+alwaysApply: false
+---
+---
+
+# .cursor/rules/global.mdc
+
+# Global Cursor Rules – Flutter Web Portfolio Project
+
+# Mandatory style and architecture guidelines for Cursor AI.
+
+# Path: .cursor/rules/global.mdc
+
+# -------------------------------------------------------------
+
+description: Global Flutter style & architecture rules
+globs:
+
+* "lib/\*\*/\*.dart"
+  alwaysApply: true
+
+---
+
+## Core Guidelines
+
+* Null Safety is required.
+* Use a strict feature‑based folder structure.
+* Each Dart file must stay under 1000 lines.
+* Remove unused imports; keep auto‑import enabled.
+* Prefer `withOpacity()`; do not use `withAlpha()`.
+
+## Routing and Dependency Injection
+
+* Use AutoRoute only; GoRouter is not allowed.
+* Dependency injection is handled with `get_it` and `injectable`.
+  All injectable classes must be annotated with `@injectable`.
+
+## Layer Separation
+
+* The `services/` folder is for generic infrastructure (Firebase, Storage, HTTP).
+  No business logic is allowed here.
+* Business logic belongs in `features/**/logic` or `features/**/data`.
+
+## Theme and UI
+
+* Colors are defined in `core/constants/app_colors.dart`.
+* Global themes are defined in `core/theme/portfolio_theme.dart` (light and dark modes).
+* The UI must be mobile‑first and fully responsive.
+
+## Naming Conventions
+
+| Item            | Convention                                  |
+| --------------- | ------------------------------------------- |
+| File names      | `snake_case.dart`                           |
+| Class names     | `PascalCase`                                |
+| Variables/Funcs | `camelCase`                                 |
+| Widget classes  | Avoid the `Widget` suffix unless necessary. |
+
+## Localization
+
+* Language files are stored as JSON under `assets/lang/`.
+* Do not use `intl`, `easy_localization`, or similar packages.
+* Default language: Turkish (`tr`); secondary language: English (`en`).
+
+## Development Workflow
+
+* Commit messages must be meaningful and action‑oriented, e.g.
+  `feat(auth): implement email login`, `fix(profile): correct photo upload bug`.
+* One topic per pull request.
+* Each feature is developed on its own branch; code review is mandatory.
+* Cursor AI **must not attempt to run, build, or test the project automatically** after each code change. The project will be run and tested **manually** by developers.
