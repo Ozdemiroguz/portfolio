@@ -1,0 +1,38 @@
+import 'package:equatable/equatable.dart';
+
+/// Single achievement entity
+class AchievementEntity extends Equatable {
+  final String title;
+  final String date;
+  final String description;
+  final String issuer;
+
+  const AchievementEntity({
+    required this.title,
+    required this.date,
+    required this.description,
+    required this.issuer,
+  });
+
+  @override
+  List<Object?> get props => [
+        title,
+        date,
+        description,
+        issuer,
+      ];
+}
+
+/// Achievement data entity
+class AchievementDataEntity extends Equatable {
+  final List<AchievementEntity> achievements;
+  final String profileImage;
+
+  const AchievementDataEntity({
+    required this.achievements,
+    this.profileImage = 'assets/images/my_photo.webp',
+  });
+
+  @override
+  List<Object?> get props => [achievements, profileImage];
+}
