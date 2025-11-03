@@ -22,11 +22,22 @@ class _PdfViewerWidgetState extends State<PdfViewerWidget> {
     if (widget.pdfUrl.startsWith('http://') || widget.pdfUrl.startsWith('https://')) {
       return widget.pdfUrl;
     }
+    
     // Asset path ise (assets/ ile başlıyorsa veya başlamıyorsa), web için asset URL'sine çevir
     final assetPath = widget.pdfUrl.startsWith('assets/')
         ? widget.pdfUrl
         : 'assets/${widget.pdfUrl}';
-    // Web'de asset'leri /assets/ prefix'i ile kullanırız
+    
+    // Web'de asset'leri base href ile birlikte kullanırız
+    // Base href'i HTML'den al
+    if (kIsWeb) {
+      final baseElement = html.document.querySelector('base');
+      final baseHref = baseElement?.getAttribute('href') ?? '/';
+      // Base href zaten / ile bitiyorsa ekstra / ekleme
+      final cleanBase = baseHref.endsWith('/') ? baseHref : '$baseHref/';
+      return '$cleanBase$assetPath';
+    }
+    
     return '/$assetPath';
   }
 

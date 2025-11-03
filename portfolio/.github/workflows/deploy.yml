@@ -1,0 +1,55 @@
+name: Deploy to GitHub Pages
+
+# Bu workflow'u tetikleyecek olaylar
+on:
+  push:
+    branches: [ main, master ]  # main veya master branch'e push olduğunda
+  workflow_dispatch:  # Manuel tetikleme için
+
+# İzinler
+permissions:
+  contents: write
+
+jobs:
+  build-and-deploy:
+    runs-on: ubuntu-latest
+    
+    steps:
+      # 1. Repository'yi checkout et
+      - name: 📥 Checkout Repository
+        uses: actions/checkout@v4
+      
+      # 2. Flutter'ı kur
+      - name: 🔧 Setup Flutter
+        uses: subosito/flutter-action@v2
+        with:
+          flutter-version: '3.27.0'  # Flutter versiyonunu güncel tutun
+          channel: 'stable'
+      
+      # 3. Dependencies'leri yükle
+      - name: 📦 Get Dependencies
+        run: flutter pub get
+      
+      # 4. Web için build et
+      # Base href /portfolio/ olarak ayarlandı
+      # Repository: https://github.com/Ozdemiroguz/portfolio
+      # GitHub Pages URL: https://ozdemiroguz.github.io/portfolio/
+      - name: 🔨 Build Web
+        run: flutter build web --release --base-href "/portfolio/"
+      
+      # 5. .nojekyll dosyası ekle (GitHub Pages Jekyll'i devre dışı bırak)
+      - name: 📝 Add .nojekyll
+        run: touch build/web/.nojekyll
+      
+      # 6. GitHub Pages'e deploy et
+      - name: 🚀 Deploy to GitHub Pages
+        uses: peaceiris/actions-gh-pages@v3
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          publish_dir: ./build/web
+          # Eğer farklı bir branch'e deploy etmek isterseniz:
+          publish_branch: gh-pages  # Default: gh-pages
+          
+          # Commit mesajı
+          commit_message: 'Deploy ${{ github.sha }}'
+
