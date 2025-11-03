@@ -56,6 +56,8 @@ class HomeAppGridWidget extends StatelessWidget {
         return Padding(
           padding: const EdgeInsets.symmetric(horizontal: AppSizes.paddingLg),
           child: GridView.builder(
+            //top padding 16
+            padding: const EdgeInsets.only(top: 16),
             physics: const AlwaysScrollableScrollPhysics(),
             gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
               crossAxisCount: crossAxisCount,
