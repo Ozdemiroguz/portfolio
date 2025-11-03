@@ -25,12 +25,12 @@ class HomeAppGridWidget extends StatelessWidget {
   Widget build(BuildContext context) {
     // Combine apps and folders into a single list
     final allItems = <_GridItem>[];
-    
+
     // Add apps
     for (var app in homeApps) {
       allItems.add(_GridItem.app(app));
     }
-    
+
     // Add folders
     for (var folder in folders) {
       allItems.add(_GridItem.folder(folder));
@@ -43,17 +43,18 @@ class HomeAppGridWidget extends StatelessWidget {
         final iconWidth = iconSize + 20; // icon + padding
         final padding = AppSizes.paddingLg;
         final spacing = AppSizes.spacingLg;
-        
+
         // Tüm ekran boyutlarında minimum 3 kolon kullan
         final minColumns = 3;
-        
+
         // Calculate how many columns fit
         final availableWidth = constraints.maxWidth - (padding * 2);
-        final calculatedColumns = ((availableWidth + spacing) / (iconWidth + spacing)).floor();
+        final calculatedColumns =
+            ((availableWidth + spacing) / (iconWidth + spacing)).floor();
         final crossAxisCount = calculatedColumns.clamp(minColumns, 4);
-        
+
         return Padding(
-          padding: const EdgeInsets.all(AppSizes.paddingLg),
+          padding: const EdgeInsets.symmetric(horizontal: AppSizes.paddingLg),
           child: GridView.builder(
             physics: const AlwaysScrollableScrollPhysics(),
             gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
@@ -68,15 +69,16 @@ class HomeAppGridWidget extends StatelessWidget {
               return Center(
                 child: SizedBox(
                   width: iconWidth,
-                  child: item.isApp
-                      ? AppIconWidget(
-                          app: item.app!,
-                          onTap: () => onAppTap(item.app!),
-                        )
-                      : FolderIconWidget(
-                          folder: item.folder!,
-                          onTap: () => onFolderTap(item.folder!),
-                        ),
+                  child:
+                      item.isApp
+                          ? AppIconWidget(
+                            app: item.app!,
+                            onTap: () => onAppTap(item.app!),
+                          )
+                          : FolderIconWidget(
+                            folder: item.folder!,
+                            onTap: () => onFolderTap(item.folder!),
+                          ),
                 ),
               );
             },
