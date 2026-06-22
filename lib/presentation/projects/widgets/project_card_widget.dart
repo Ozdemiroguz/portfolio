@@ -7,14 +7,23 @@ import '../../../core/utils/translation_helpers.dart';
 import '../../../core/utils/url_helpers.dart';
 
 /// Project card widget
-/// Displays a single project
+/// Displays a single project (with optional title-keyed badge)
 class ProjectCardWidget extends StatelessWidget {
   final ProjectEntity project;
 
-  const ProjectCardWidget({
-    super.key,
-    required this.project,
-  });
+  const ProjectCardWidget({super.key, required this.project});
+
+  // Subtle pill-style label by project title
+  _Badge? _resolveBadge() {
+    final t = project.title.toLowerCase();
+    if (t.contains('medifinder')) {
+      return const _Badge('Latest', Color(0xFF4CAF50));
+    }
+    if (t.contains('amore')) {
+      return const _Badge('Live', Color(0xFF2196F3));
+    }
+    return null;
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -24,6 +33,7 @@ class ProjectCardWidget extends StatelessWidget {
     final githubUrl = project.githubUrl;
     final playStoreUrl = project.playStoreUrl;
     final webUrl = project.webUrl;
+    final badge = _resolveBadge();
 
     return Container(
       width: double.infinity,
@@ -31,21 +41,50 @@ class ProjectCardWidget extends StatelessWidget {
       decoration: BoxDecoration(
         color: AppColors.withOpacity(Colors.white, 0.05),
         borderRadius: BorderRadius.circular(AppSizes.radiusMd),
-        border: Border.all(
-          color: AppColors.withOpacity(Colors.white, 0.1),
-        ),
+        border: Border.all(color: AppColors.withOpacity(Colors.white, 0.1)),
       ),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          // Title
-          Text(
-            title,
-            style: const TextStyle(
-              color: AppColors.textPrimary,
-              fontSize: 18,
-              fontWeight: FontWeight.bold,
-            ),
+          // Title row + optional badge
+          Row(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Expanded(
+                child: Text(
+                  title,
+                  style: const TextStyle(
+                    color: AppColors.textPrimary,
+                    fontSize: 18,
+                    fontWeight: FontWeight.bold,
+                  ),
+                ),
+              ),
+              if (badge != null) ...[
+                const SizedBox(width: 8),
+                Container(
+                  padding: const EdgeInsets.symmetric(
+                    horizontal: 8,
+                    vertical: 4,
+                  ),
+                  decoration: BoxDecoration(
+                    color: badge.color.withValues(alpha: 0.18),
+                    borderRadius: BorderRadius.circular(12),
+                    border: Border.all(
+                      color: badge.color.withValues(alpha: 0.55),
+                    ),
+                  ),
+                  child: Text(
+                    badge.label,
+                    style: TextStyle(
+                      color: badge.color,
+                      fontSize: 11,
+                      fontWeight: FontWeight.w700,
+                    ),
+                  ),
+                ),
+              ],
+            ],
           ),
           const SizedBox(height: AppSizes.spacingSm),
 
@@ -117,4 +156,10 @@ class ProjectCardWidget extends StatelessWidget {
       ),
     );
   }
+}
+
+class _Badge {
+  final String label;
+  final Color color;
+  const _Badge(this.label, this.color);
 }

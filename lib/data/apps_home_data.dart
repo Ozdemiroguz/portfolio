@@ -19,10 +19,10 @@ const List<Map<String, dynamic>> appsHome = [
       'fullName': 'Oğuzhan Özdemir',
       'fullNameKey': 'about.data.fullName',
       'title':
-          'Mobile Engineer · 8+ Live App Store Apps · Flutter / Bloc / Subscription Stack',
+          'Mobile Engineer · Flutter · Bloc · Subscription Stack',
       'titleKey': 'about.data.title',
       'bio':
-          'Mobile engineer with 3+ years of experience shipping production Flutter apps to iOS and Android. I own and maintain 8+ utility & productivity apps live on the App Store as an indie developer, plus production work at Nodelabs including a 4.7K-review architectural rebuild that improved startup by ~44%. Hands-on with the full subscription monetization stack — RevenueCat tiered pricing (day-pass to lifetime), AdMob freemium, Firebase Analytics + Mixpanel for paywall funnels, and Crashlytics for stability. Comfortable across the full lifecycle: architecture, native bridges (Swift Vision / Kotlin OpenCV), and release ownership across App Store Connect and Google Play.',
+          'Mobile engineer with 3+ years of Flutter experience on iOS and Android. I work on production apps at Nodelabs (including a 4.7K-review rebuild that improved startup by ~44%) and publish utility & productivity apps on the App Store as an indie developer. Day-to-day I work with Bloc, RevenueCat, Firebase / Mixpanel analytics, and native bridges (Swift Vision / Kotlin OpenCV) across the full release lifecycle.',
       'bioKey': 'about.data.bio',
       'location': 'Istanbul, Turkey',
       'locationKey': 'about.data.location',
@@ -62,7 +62,7 @@ const List<Map<String, dynamic>> appsHome = [
     'createdAt': '2024-01-01T00:00:00.000Z',
     'updatedAt': '2025-10-30T00:00:00.000Z',
     'isActive': true,
-    'order': 1,
+    'order': 8,
     'data': {},
   },
   {
@@ -78,7 +78,7 @@ const List<Map<String, dynamic>> appsHome = [
     'createdAt': '2024-01-01T00:00:00.000Z',
     'updatedAt': '2025-10-30T00:00:00.000Z',
     'isActive': true,
-    'order': 1,
+    'order': 2,
     'data': {
       'experiences': [
         {
@@ -231,7 +231,7 @@ const List<Map<String, dynamic>> appsHome = [
     'createdAt': '2024-01-01T00:00:00.000Z',
     'updatedAt': '2025-10-30T00:00:00.000Z',
     'isActive': true,
-    'order': 2,
+    'order': 3,
     'data': {
       'profileImage': 'assets/images/achievement.webp',
       'achievements': [
@@ -245,6 +245,36 @@ const List<Map<String, dynamic>> appsHome = [
           'descriptionKey': 'achievement.gdsc.description',
           'issuer': 'Google Developer Student Clubs (GDSC)',
           'issuerKey': 'achievement.gdsc.issuer',
+        },
+        {
+          'title': 'Fiverr — 5.0★ Mobile Developer',
+          'titleKey': 'achievement.fiverr.title',
+          'date': '2024-01-01',
+          'description':
+              '5.0★ rating across mobile delivery work for international Fiverr clients, with consumer apps published on the App Store.',
+          'descriptionKey': 'achievement.fiverr.description',
+          'issuer': 'Fiverr',
+          'issuerKey': 'achievement.fiverr.issuer',
+        },
+        {
+          'title': 'Apple Developer Program — Indie Publisher',
+          'titleKey': 'achievement.appstore.title',
+          'date': '2024-11-01',
+          'description':
+              'Apple Developer Program member shipping utility & productivity apps on the App Store with RevenueCat subscriptions, AdMob, and Firebase / Mixpanel analytics.',
+          'descriptionKey': 'achievement.appstore.description',
+          'issuer': 'Apple Developer Program',
+          'issuerKey': 'achievement.appstore.issuer',
+        },
+        {
+          'title': 'Open Source — 45+ Public GitHub Repositories',
+          'titleKey': 'achievement.github.title',
+          'date': '2023-01-01',
+          'description':
+              'Public repositories on GitHub spanning Flutter, Dart, and Node.js — including pinned projects such as ImageFlow, Movie App, GreenScore, Site Management, and MediFinder.',
+          'descriptionKey': 'achievement.github.description',
+          'issuer': 'GitHub',
+          'issuerKey': 'achievement.github.issuer',
         },
       ],
     },
@@ -262,10 +292,10 @@ const List<Map<String, dynamic>> appsHome = [
     'createdAt': '2024-01-01T00:00:00.000Z',
     'updatedAt': '2024-01-01T00:00:00.000Z',
     'isActive': true,
-    'order': 3,
+    'order': 4,
     'data': {
       'email': 'ozdemiroguzhan55@gmail.com',
-      'phone': '',
+      'phone': '+90 545 454 25 32',
       'address': 'İstanbul, Türkiye',
       'socials': [
         {'platform': 'GitHub', 'url': 'https://github.com/Ozdemiroguz'},
@@ -273,7 +303,11 @@ const List<Map<String, dynamic>> appsHome = [
           'platform': 'LinkedIn',
           'url': 'https://www.linkedin.com/in/oguzhanozdemirflutterdev/',
         },
-        {'platform': 'Twitter', 'url': 'https://x.com/birsalbe'},
+        {
+          'platform': 'App Store',
+          'url':
+              'https://apps.apple.com/us/developer/oguzhan-0zdemir/id1780829933',
+        },
         {'platform': 'Medium', 'url': 'https://medium.com/@7oughapps1'},
       ],
     },
@@ -291,7 +325,7 @@ const List<Map<String, dynamic>> appsHome = [
     'createdAt': '2024-01-01T00:00:00.000Z',
     'updatedAt': '2024-01-01T00:00:00.000Z',
     'isActive': true,
-    'order': 4,
+    'order': 6,
     'data': {
       'images': [
         // ImageFlow
@@ -347,7 +381,7 @@ const List<Map<String, dynamic>> appsHome = [
     'createdAt': '2024-01-01T00:00:00.000Z',
     'updatedAt': '2024-01-01T00:00:00.000Z',
     'isActive': true,
-    'order': 5,
+    'order': 1,
     'data': {'pdfUrl': 'assets/assets/Oguzhan-Ozdemir-CV-Resume.pdf'},
   },
   {
@@ -363,7 +397,7 @@ const List<Map<String, dynamic>> appsHome = [
     'createdAt': '2024-01-01T00:00:00.000Z',
     'updatedAt': '2024-01-01T00:00:00.000Z',
     'isActive': true,
-    'order': 6,
+    'order': 7,
     'data': {
       'location': {
         'lat': 41.0082,
@@ -385,7 +419,7 @@ const List<Map<String, dynamic>> appsHome = [
     'createdAt': '2024-01-01T00:00:00.000Z',
     'updatedAt': '2026-02-28T00:00:00.000Z',
     'isActive': true,
-    'order': 7,
+    'order': 5,
     'data': {
       'url': 'https://apps.apple.com/us/developer/oguzhan-0zdemir/id1780829933',
     },
@@ -403,7 +437,7 @@ const List<Map<String, dynamic>> appsHome = [
     'createdAt': '2024-01-01T00:00:00.000Z',
     'updatedAt': '2024-01-01T00:00:00.000Z',
     'isActive': true,
-    'order': 4,
+    'order': 9,
     'data': {'gameType': 'snake', 'controls': 'Arrow keys or WASD'},
   },
   {
@@ -419,7 +453,7 @@ const List<Map<String, dynamic>> appsHome = [
     'createdAt': '2024-01-01T00:00:00.000Z',
     'updatedAt': '2024-01-01T00:00:00.000Z',
     'isActive': true,
-    'order': 5,
+    'order': 10,
     'data': {'gameType': 'tetris', 'controls': 'Arrow keys'},
   },
 ];

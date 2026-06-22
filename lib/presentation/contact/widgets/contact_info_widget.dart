@@ -6,14 +6,14 @@ import '../../../core/constants/app_sizes.dart';
 import '../../../domain/entities/contact_data_entity.dart';
 
 /// Contact info widget
-/// Displays email, phone, address with clickable links
+/// Large CTA buttons for Email + WhatsApp, then info rows
 class ContactInfoWidget extends StatelessWidget {
   final ContactDataEntity data;
 
-  const ContactInfoWidget({
-    super.key,
-    required this.data,
-  });
+  static const String _whatsappNumber = '905454542532'; // +90 545 454 25 32
+  static const String _phoneDisplay = '+90 545 454 25 32';
+
+  const ContactInfoWidget({super.key, required this.data});
 
   @override
   Widget build(BuildContext context) {
@@ -23,9 +23,7 @@ class ContactInfoWidget extends StatelessWidget {
       decoration: BoxDecoration(
         color: AppColors.withOpacity(Colors.white, 0.05),
         borderRadius: BorderRadius.circular(AppSizes.radiusMd),
-        border: Border.all(
-          color: AppColors.withOpacity(Colors.white, 0.1),
-        ),
+        border: Border.all(color: AppColors.withOpacity(Colors.white, 0.1)),
       ),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
@@ -40,16 +38,51 @@ class ContactInfoWidget extends StatelessWidget {
           ),
           const SizedBox(height: AppSizes.spacingMd),
 
-          // Email - clickable
+          // ===== PRIMARY CTA BUTTONS =====
+          Row(
+            children: [
+              // Email button
+              if (data.email.isNotEmpty)
+                Expanded(
+                  child: _buildCtaButton(
+                    icon: Icons.email_rounded,
+                    label: tr('contact.emailMe'),
+                    color: AppColors.primary,
+                    onTap: () => _launchEmail(data.email),
+                  ),
+                ),
+              if (data.email.isNotEmpty)
+                const SizedBox(width: AppSizes.spacingSm),
+              // WhatsApp button
+              Expanded(
+                child: _buildCtaButton(
+                  icon: Icons.chat_rounded,
+                  label: tr('contact.whatsapp'),
+                  color: const Color(0xFF25D366), // WhatsApp green
+                  onTap: _launchWhatsApp,
+                ),
+              ),
+            ],
+          ),
+
+          const SizedBox(height: AppSizes.spacingLg),
+
+          // ===== INFO ROWS =====
           if (data.email.isNotEmpty)
             _buildClickableRow(
-              icon: Icons.email,
+              icon: Icons.alternate_email,
               label: tr('contact.email'),
               value: data.email,
               onTap: () => _launchEmail(data.email),
             ),
 
-          // Address - not clickable
+          _buildClickableRow(
+            icon: Icons.phone,
+            label: tr('contact.phone'),
+            value: _phoneDisplay,
+            onTap: _launchWhatsApp,
+          ),
+
           if (data.address.isNotEmpty)
             _buildInfoRow(
               icon: Icons.location_on,
@@ -57,6 +90,60 @@ class ContactInfoWidget extends StatelessWidget {
               value: data.address,
             ),
         ],
+      ),
+    );
+  }
+
+  Widget _buildCtaButton({
+    required IconData icon,
+    required String label,
+    required Color color,
+    required VoidCallback onTap,
+  }) {
+    return Material(
+      color: Colors.transparent,
+      child: InkWell(
+        onTap: onTap,
+        borderRadius: BorderRadius.circular(AppSizes.radiusMd),
+        child: Container(
+          padding: const EdgeInsets.symmetric(
+            vertical: AppSizes.paddingMd,
+            horizontal: AppSizes.paddingMd,
+          ),
+          decoration: BoxDecoration(
+            gradient: LinearGradient(
+              begin: Alignment.topLeft,
+              end: Alignment.bottomRight,
+              colors: [color, color.withValues(alpha: 0.8)],
+            ),
+            borderRadius: BorderRadius.circular(AppSizes.radiusMd),
+            boxShadow: [
+              BoxShadow(
+                color: color.withValues(alpha: 0.35),
+                blurRadius: 12,
+                offset: const Offset(0, 4),
+              ),
+            ],
+          ),
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              Icon(icon, color: Colors.white, size: 20),
+              const SizedBox(width: AppSizes.spacingXs),
+              Flexible(
+                child: Text(
+                  label,
+                  overflow: TextOverflow.ellipsis,
+                  style: const TextStyle(
+                    color: Colors.white,
+                    fontSize: 14,
+                    fontWeight: FontWeight.w700,
+                  ),
+                ),
+              ),
+            ],
+          ),
+        ),
       ),
     );
   }
@@ -158,9 +245,20 @@ class ContactInfoWidget extends StatelessWidget {
   }
 
   Future<void> _launchEmail(String email) async {
-    final uri = Uri.parse('mailto:$email');
+    final subject = Uri.encodeComponent('Portfolio inquiry');
+    final uri = Uri.parse('mailto:$email?subject=$subject');
     if (await canLaunchUrl(uri)) {
       await launchUrl(uri);
+    }
+  }
+
+  Future<void> _launchWhatsApp() async {
+    final message = Uri.encodeComponent(
+      "Hi Oğuzhan, I found your portfolio and would like to chat.",
+    );
+    final uri = Uri.parse('https://wa.me/$_whatsappNumber?text=$message');
+    if (await canLaunchUrl(uri)) {
+      await launchUrl(uri, mode: LaunchMode.externalApplication);
     }
   }
 }
