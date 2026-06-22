@@ -21,12 +21,6 @@ class CameraScreen extends StatelessWidget {
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            // Heart on top
-            const Text(
-              '❤️',
-              style: TextStyle(fontSize: 48),
-            ),
-            const SizedBox(height: 24),
             // Text with padding on left and right
             Padding(
               padding: const EdgeInsets.symmetric(horizontal: 32),

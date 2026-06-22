@@ -1,0 +1,65 @@
+// Portfolio genel bilgileri ve klasör yapısı
+
+const Map<String, dynamic> portfolioInfo = {
+  'id': 'portfolio_1',
+  'domain': 'oguz',
+  'title': 'Oğuz Özdemiroğlu Portfolio',
+  'description': 'Mobile & Backend Developer (Flutter, Swift, Node.js)',
+  'ownerId': 'user_1',
+  'createdAt': '2024-01-01T00:00:00.000Z',
+  'updatedAt': '2024-01-01T00:00:00.000Z',
+  'isPublic': true,
+  'customDomain': null,
+  'coverImage': null,
+  'profilePhoto': null,
+  'portfolioType': 'mobile',
+  'theme': {
+    'mode': 'dark',
+    'primaryColor': '#2196F3',
+    'backgroundColor': '#121212',
+    'textColor': '#FFFFFF',
+    'accentColor': '#FF4081',
+  },
+  'socialLinks': [
+    {'type': 'github', 'url': 'https://github.com/Ozdemiroguz'},
+    {'type': 'linkedin', 'url': 'https://linkedin.com/in/ozdemiroguz'},
+    {'type': 'email', 'url': 'mailto:oguz@example.com'},
+  ],
+  'skills': [
+    'Flutter',
+    'Dart',
+    'Firebase',
+    'REST API',
+    'Git',
+    'UI/UX Design',
+  ],
+  'tags': ['Mobile Development', 'Cross-Platform', 'iOS', 'Android'],
+  'languages': ['tr', 'en'],
+  'defaultLocale': 'tr',
+};
+
+const List<Map<String, dynamic>> portfolioFolders = [
+  {
+    'id': 'folder_projects',
+    'title': 'Projects',
+    'description': 'My projects',
+    'icon': '📁',
+    'color': '#2196F3',
+    'appIds': [
+      'project_imageflow',
+      'project_testcase',
+      'project_joylive',
+      'project_soundcare',
+      'project_trhaber',
+      'project_taxi',
+      'project_purellm',
+      'project_sitemanagement',
+      'project_ceptedershane',
+      'project_greenscore',
+    ],
+    'order': 0,
+    'isActive': true,
+    'createdAt': '2024-01-01T00:00:00.000Z',
+    'updatedAt': '2024-01-01T00:00:00.000Z',
+  },
+];

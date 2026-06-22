@@ -85,7 +85,7 @@ flutter:
   assets:
     - assets/images/
     - assets/translations/
-    - assets/Oguzhan-Ozdemir-Resume-20251030.pdf
+    - assets/Oguzhan-Ozdemir-CV-Resume.pdf
 
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/to/resolution-aware-images

@@ -61,9 +61,11 @@ class HomeCubit extends Cubit<HomeState> {
       return;
     }
 
-    // Browser app için direkt Google.com'u harici tarayıcıda aç
+    // Browser app için harici tarayıcıda aç (data.url varsa onu kullan)
     if (app.type == 'browser') {
-      _openGoogleInBrowser();
+      final data = app.data;
+      final url = (data is Map ? data['url'] as String? : null) ?? 'https://www.google.com';
+      _openGoogleInBrowser(url);
       return;
     }
 
@@ -77,9 +79,8 @@ class HomeCubit extends Cubit<HomeState> {
     }
   }
 
-  /// Open Google.com in external browser
-  Future<void> _openGoogleInBrowser() async {
-    const url = 'https://www.google.com';
+  /// Open URL in external browser
+  Future<void> _openGoogleInBrowser([String url = 'https://www.google.com']) async {
     final uri = Uri.parse(url);
     
     try {
