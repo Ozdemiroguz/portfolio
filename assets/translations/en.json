@@ -24,14 +24,15 @@
     "birthDate": "Birth Date",
     "data": {
       "fullName": "Oğuzhan Özdemir",
-      "title": "Mobile & Backend Developer (Flutter, Swift, Node.js)",
-      "bio": "I am a developer with over three years of experience in mobile and backend development using Flutter, Swift, and Node.js. I have published more than six applications on the App Store and Play Store. My focus is on creating smart, innovative apps by integrating AI technologies such as OpenAI (ChatGPT) and Gemini into my projects. My goal is to combine my expertise in Flutter, native mobile, and AI development to build powerful, full-stack mobile solutions.",
+      "title": "Mobile Engineer · 8+ Live App Store Apps · Flutter / Bloc / Subscription Stack",
+      "bio": "Mobile engineer with 3+ years of experience shipping production Flutter apps to iOS and Android. I own and maintain 8+ utility & productivity apps live on the App Store as an indie developer, plus production work at Nodelabs including a 4.7K-review architectural rebuild that improved startup by ~44%. Hands-on with the full subscription monetization stack — RevenueCat tiered pricing (day-pass to lifetime), AdMob freemium, Firebase Analytics + Mixpanel for paywall funnels, and Crashlytics for stability. Comfortable across the full lifecycle: architecture, native bridges (Swift Vision / Kotlin OpenCV), and release ownership across App Store Connect and Google Play.",
       "location": "Istanbul, Turkey",
       "birthDate": "2002-03-30",
-      "education": "Computer Engineering — Eskisehir Osmangazi University (2020–2024)",
+      "education": "Computer Engineering — Eskisehir Osmangazi University (2020–2025)",
       "interests": {
         "mobileDevelopment": "Mobile Development",
-        "backendSystems": "Backend Systems",
+        "subscriptionMonetization": "Subscription Monetization",
+        "indieAppPublishing": "Indie App Publishing",
         "aiIntegration": "AI Integration",
         "uiUxDesign": "UI/UX Design",
         "openSourceProjects": "Open Source Projects"
@@ -91,7 +92,18 @@
       "provider": "Provider",
       "git": "Git",
       "mysql": "MySQL",
-      "express": "Express.js"
+      "express": "Express.js",
+      "revenuecat": "RevenueCat",
+      "admob": "AdMob",
+      "firebaseAnalytics": "Firebase Analytics",
+      "mixpanel": "Mixpanel",
+      "crashlytics": "Crashlytics",
+      "videosdk": "VideoSDK",
+      "websocket": "WebSocket",
+      "restApi": "REST API",
+      "iot": "IoT",
+      "appStore": "App Store Connect",
+      "appStoreConnect": "App Store Connect"
     }
   },
   "projects": {
