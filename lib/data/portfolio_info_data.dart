@@ -111,4 +111,19 @@ const List<Map<String, dynamic>> portfolioFolders = [
     'createdAt': '2026-06-22T00:00:00.000Z',
     'updatedAt': '2026-06-22T00:00:00.000Z',
   },
+  {
+    'id': 'folder_open_source',
+    'title': 'Open Source',
+    'description': '2 published pub.dev packages · 160/160 pub points',
+    'icon': '📦',
+    'color': '#4CAF50',
+    'appIds': [
+      'package_documentscan',
+      'package_imagecompressor',
+    ],
+    'order': 2,
+    'isActive': true,
+    'createdAt': '2026-07-15T00:00:00.000Z',
+    'updatedAt': '2026-07-15T00:00:00.000Z',
+  },
 ];

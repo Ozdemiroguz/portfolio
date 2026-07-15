@@ -50,37 +50,46 @@ class CvScreen extends StatelessWidget {
                         ),
                       ),
                     ),
-                    child: Row(
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        // Geri butonu için boşluk (AppScreenWrapperWidget'daki geri butonu için)
-                        const SizedBox(width: 60),
-                        // Tarih - sol taraf
-                        Expanded(
-                          child: Column(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: [
-                              Text(
-                                tr('cv.title'),
-                                style: const TextStyle(
-                                  color: AppColors.textPrimary,
-                                  fontSize: 20,
-                                  fontWeight: FontWeight.bold,
-                                ),
-                              ),
-                              const SizedBox(height: 4),
-                              Text(
-                                currentDate,
-                                style: TextStyle(
-                                  color: AppColors.textSecondary,
-                                  fontSize: 14,
-                                ),
-                              ),
-                            ],
-                          ),
-                        ),
-                        // Aksiyon butonlari - sag taraf
+                        // Baslik satiri - geri butonuna yer birakir
                         Row(
-                          mainAxisSize: MainAxisSize.min,
+                          children: [
+                            // Geri butonu için boşluk (AppScreenWrapperWidget'daki geri butonu için)
+                            const SizedBox(width: 60),
+                            Expanded(
+                              child: Column(
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: [
+                                  Text(
+                                    tr('cv.title'),
+                                    maxLines: 1,
+                                    overflow: TextOverflow.ellipsis,
+                                    style: const TextStyle(
+                                      color: AppColors.textPrimary,
+                                      fontSize: 20,
+                                      fontWeight: FontWeight.bold,
+                                    ),
+                                  ),
+                                  const SizedBox(height: 4),
+                                  Text(
+                                    currentDate,
+                                    maxLines: 1,
+                                    overflow: TextOverflow.ellipsis,
+                                    style: TextStyle(
+                                      color: AppColors.textSecondary,
+                                      fontSize: 14,
+                                    ),
+                                  ),
+                                ],
+                              ),
+                            ),
+                          ],
+                        ),
+                        const SizedBox(height: AppSizes.paddingMd),
+                        // Aksiyon butonlari - kendi satirinda
+                        Row(
                           children: [
                             // Email
                             _buildIconAction(
@@ -99,10 +108,12 @@ class CvScreen extends StatelessWidget {
                             ),
                             const SizedBox(width: 8),
                             // Download (primary CTA, filled)
-                            _buildPrimaryDownload(
-                              context: context,
-                              pdfUrl: pdfUrl,
-                              label: tr('cv.download'),
+                            Expanded(
+                              child: _buildPrimaryDownload(
+                                context: context,
+                                pdfUrl: pdfUrl,
+                                label: tr('cv.download'),
+                              ),
                             ),
                           ],
                         ),
@@ -266,15 +277,20 @@ class CvScreen extends StatelessWidget {
         ),
         child: Row(
           mainAxisSize: MainAxisSize.min,
+          mainAxisAlignment: MainAxisAlignment.center,
           children: [
             const Icon(Icons.download_rounded, color: Colors.white, size: 18),
             const SizedBox(width: AppSizes.spacingXs),
-            Text(
-              label,
-              style: const TextStyle(
-                color: Colors.white,
-                fontSize: 14,
-                fontWeight: FontWeight.w700,
+            Flexible(
+              child: Text(
+                label,
+                maxLines: 1,
+                overflow: TextOverflow.ellipsis,
+                style: const TextStyle(
+                  color: Colors.white,
+                  fontSize: 14,
+                  fontWeight: FontWeight.w700,
+                ),
               ),
             ),
           ],
