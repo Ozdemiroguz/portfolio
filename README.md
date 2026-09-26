@@ -65,7 +65,7 @@ Platform: Web (with mobile support)
 ### Key Packages
 
 - **State Management:** `flutter_bloc` - Predictable state management
-- **Routing:** `go_router` - Declarative routing solution
+- **Dependency Injection:** `get_it` - Service locator for use cases & cubits
 - **Internationalization:** `easy_localization` - Multi-language support
 - **UI Components:**
   - `carousel_slider` - Image carousels
@@ -131,8 +131,8 @@ Each "app" in the portfolio is a fully functional mini-application:
 ### Prerequisites
 
 ```bash
-Flutter SDK: >=3.0.0
-Dart SDK: >=3.0.0
+Flutter SDK: >=3.35.0
+Dart SDK: >=3.9.0
 ```
 
 ### Installation
@@ -157,7 +157,13 @@ Dart SDK: >=3.0.0
    flutter run
    ```
 
-4. **Build for production**
+4. **Check & test**
+   ```bash
+   flutter analyze
+   flutter test
+   ```
+
+5. **Build for production**
    ```bash
    # Web build
    flutter build web --release --base-href "/"
@@ -260,7 +266,8 @@ While this is a personal portfolio, I'm open to suggestions and improvements!
 
 ## 📈 Code Quality
 
-- ✅ **0 Linter Errors** - Clean code
+- ✅ **0 Linter Errors** - Clean code (`flutter analyze`)
+- ✅ **Tests** - Repository unit tests + app boot smoke test (`flutter test`)
 - ✅ **Null Safety** - Fully null-safe
 - ✅ **Type Safety** - Strong typing throughout
 - ✅ **Documentation** - Well-documented code

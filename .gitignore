@@ -48,3 +48,6 @@ app.*.map.json
 /android/app/release
 
 
+
+# Local clone of the GitHub Pages repo (deploy target), not part of this project
+/Ozdemiroguz.github.io/
