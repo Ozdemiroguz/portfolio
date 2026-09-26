@@ -424,5 +424,29 @@
       }
     },
     "playAgain": "Play Again"
+  },
+  "viewMode": {
+    "phone": "Phone",
+    "classic": "Classic"
+  },
+  "classic": {
+    "menu": "Menu",
+    "greeting": "HI, I'M",
+    "viewProjects": "View Projects",
+    "viewDetails": "View details",
+    "close": "Close",
+    "nav": {
+      "projects": "Projects",
+      "career": "Career",
+      "achievements": "Achievements",
+      "contact": "Contact"
+    },
+    "projectsSubtitle": "A selection of the products I have built and shipped.",
+    "careerSubtitle": "Where I have worked and what I did there.",
+    "achievementsSubtitle": "Certificates, awards and milestones.",
+    "contactSubtitle": "Open to new projects and collaborations. Reach out through any channel below.",
+    "tryInteractive": "Try the interactive mode",
+    "tryInteractiveDescription": "The same portfolio, presented as a phone you can explore. Apps, folders and a couple of games are waiting.",
+    "openPhoneMode": "Open phone mode"
   }
 }

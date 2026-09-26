@@ -11,6 +11,9 @@ import '../shared/widgets/phone_frame_widget.dart';
 import '../shared/widgets/app_screen_wrapper_widget.dart';
 import '../shared/widgets/folder_overlay_widget.dart';
 import '../shared/widgets/language_overlay_widget.dart';
+import '../classic/classic_portfolio_screen.dart';
+import '../view_mode/view_mode_cubit.dart';
+import '../view_mode/view_mode_toggle_widget.dart';
 import 'widgets/portfolio_info_panel_widget.dart';
 
 /// Portfolio screen
@@ -67,14 +70,19 @@ class _PortfolioScreenState extends State<PortfolioScreen> {
                       return _buildTooSmallScreen();
                     }
 
-                    // Desktop mode with content panel (min 1200px)
-                    final showContentPanel = constraints.maxWidth >= 1200;
+                    return BlocBuilder<ViewModeCubit, ViewMode?>(
+                      builder: (context, _) {
+                        final mode = context
+                            .read<ViewModeCubit>()
+                            .resolve(constraints.maxWidth);
 
-                    if (showContentPanel) {
-                      return _buildDesktopLayout(state);
-                    } else {
-                      return _buildPhoneOnlyLayout(state, constraints);
-                    }
+                        if (mode == ViewMode.classic) {
+                          return ClassicPortfolioScreen(state: state);
+                        }
+
+                        return _buildPhoneMode(state, constraints);
+                      },
+                    );
                   },
                 );
               }
@@ -84,6 +92,27 @@ class _PortfolioScreenState extends State<PortfolioScreen> {
           ),
         ),
       ),
+    );
+  }
+
+  /// Phone experience with the view mode toggle floating in the corner.
+  Widget _buildPhoneMode(HomeLoaded state, BoxConstraints constraints) {
+    // Desktop mode with content panel (min 1200px)
+    final showContentPanel =
+        constraints.maxWidth >= AppSizes.desktopBreakpoint;
+    final layout = showContentPanel
+        ? _buildDesktopLayout(state)
+        : _buildPhoneOnlyLayout(state, constraints);
+
+    return Stack(
+      children: [
+        layout,
+        const Positioned(
+          top: AppSizes.paddingMd,
+          right: AppSizes.paddingMd,
+          child: ViewModeToggleWidget(current: ViewMode.phone),
+        ),
+      ],
     );
   }
 

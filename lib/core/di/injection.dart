@@ -1,4 +1,5 @@
 import 'package:get_it/get_it.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 import '../../data/datasources/local_portfolio_datasource.dart';
 import '../../data/datasources/portfolio_datasource.dart';
 import '../../data/repositories/portfolio_repository_impl.dart';
@@ -11,12 +12,17 @@ import '../../domain/usecases/get_folder_apps.dart';
 import '../../domain/usecases/send_contact_message.dart';
 import '../../presentation/home/cubit/home_cubit.dart';
 import '../../presentation/portfolio/cubit/portfolio_cubit.dart';
+import '../../presentation/view_mode/view_mode_cubit.dart';
 
 /// Service locator instance
 final sl = GetIt.instance;
 
 /// Initialize dependency injection
 Future<void> initializeDependencies() async {
+  // External
+  final prefs = await SharedPreferences.getInstance();
+  sl.registerSingleton<SharedPreferences>(prefs);
+
   // Data sources
   sl.registerLazySingleton<PortfolioDataSource>(
     () => LocalPortfolioDataSource(),
@@ -50,4 +56,6 @@ Future<void> initializeDependencies() async {
       getPortfolio: sl(),
     ),
   );
+
+  sl.registerFactory(() => ViewModeCubit(prefs: sl()));
 }

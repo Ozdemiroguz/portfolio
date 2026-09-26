@@ -7,6 +7,7 @@ import 'core/theme/app_theme.dart';
 import 'presentation/home/cubit/home_cubit.dart';
 import 'presentation/portfolio/cubit/portfolio_cubit.dart';
 import 'presentation/portfolio/portfolio_screen.dart';
+import 'presentation/view_mode/view_mode_cubit.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -46,6 +47,7 @@ class MyApp extends StatelessWidget {
       providers: [
         BlocProvider(create: (_) => sl<HomeCubit>()),
         BlocProvider(create: (_) => sl<PortfolioCubit>()),
+        BlocProvider(create: (_) => sl<ViewModeCubit>()),
       ],
       child: MaterialApp(
         title: 'Portfolio',

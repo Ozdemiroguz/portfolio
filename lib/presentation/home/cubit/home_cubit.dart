@@ -40,14 +40,32 @@ class HomeCubit extends Cubit<HomeState> {
       final bottomAppsResult = results[1] as List<AppEntity>;
       final foldersResult = results[2] as List<FolderEntity>;
 
+      // Folder contents are needed up front by the classic layout.
+      final folderContents = await Future.wait(
+        foldersResult.map((folder) => getFolderApps(domain, folder.appIds)),
+      );
+
       emit(HomeLoaded(
         homeApps: homeAppsResult,
         bottomApps: bottomAppsResult,
         folders: foldersResult,
+        allApps: _dedupeById([
+          ...homeAppsResult,
+          ...bottomAppsResult,
+          for (final apps in folderContents) ...apps,
+        ]),
       ));
     } catch (e) {
       emit(HomeError(e.toString()));
     }
+  }
+
+  static List<AppEntity> _dedupeById(List<AppEntity> apps) {
+    final seen = <String>{};
+    return [
+      for (final app in apps)
+        if (seen.add(app.id)) app,
+    ];
   }
 
   /// Open app

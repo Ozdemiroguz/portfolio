@@ -4,7 +4,7 @@
     "loading": "Yükleniyor...",
     "error": "Bir hata oluştu",
     "retry": "Tekrar Dene",
-     "back": "Geri",
+    "back": "Geri",
     "language": "Dil",
     "changeLanguage": "Dili Değiştir",
     "english": "İngilizce",
@@ -424,5 +424,29 @@
       }
     },
     "playAgain": "Tekrar Oyna"
+  },
+  "viewMode": {
+    "phone": "Telefon",
+    "classic": "Klasik"
+  },
+  "classic": {
+    "menu": "Menü",
+    "greeting": "MERHABA, BEN",
+    "viewProjects": "Projeleri Gör",
+    "viewDetails": "Detayları gör",
+    "close": "Kapat",
+    "nav": {
+      "projects": "Projeler",
+      "career": "Kariyer",
+      "achievements": "Başarılar",
+      "contact": "İletişim"
+    },
+    "projectsSubtitle": "Geliştirip yayına aldığım ürünlerden bir seçki.",
+    "careerSubtitle": "Çalıştığım yerler ve orada yaptıklarım.",
+    "achievementsSubtitle": "Sertifikalar, ödüller ve kilometre taşları.",
+    "contactSubtitle": "Yeni projelere ve iş birliklerine açığım. Aşağıdaki kanallardan ulaşabilirsin.",
+    "tryInteractive": "İnteraktif modu dene",
+    "tryInteractiveDescription": "Aynı portföy, keşfedebileceğin bir telefon olarak. Uygulamalar, klasörler ve birkaç oyun seni bekliyor.",
+    "openPhoneMode": "Telefon modunu aç"
   }
 }

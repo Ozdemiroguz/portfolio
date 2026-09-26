@@ -58,11 +58,12 @@ dependencies:
   # Web interop (PDF iframe, file download)
   web: ^1.1.1
 
+  # Persists the visitor's view mode choice
+  shared_preferences: ^2.5.3
+
 dev_dependencies:
   flutter_test:
     sdk: flutter
-  # Used by the widget smoke test to mock easy_localization's storage
-  shared_preferences: ^2.5.3
 
   # The "flutter_lints" package below contains a set of recommended lints to
   # encourage good coding practices. The lint set provided by the package is

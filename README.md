@@ -22,6 +22,7 @@ A modern, interactive portfolio built with **Flutter Web** that showcases my pro
 ### 🎯 Key Features
 
 - 📱 **iOS-Inspired UI** - Familiar iPhone-like interface with app icons, folders, and smooth animations
+- 🔀 **Two View Modes** - Switch between the interactive phone and a classic single-page layout (`?view=classic`); the choice is remembered
 - 🌍 **Bilingual Support** - Full Turkish & English localization using `easy_localization`
 - 🎮 **Interactive Games** - Built-in Snake & Tetris games for fun!
 - 📊 **Dynamic Content** - All content managed through centralized data structure

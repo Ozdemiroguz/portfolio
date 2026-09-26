@@ -25,6 +25,10 @@ class HomeLoaded extends HomeState {
   final List<AppEntity> homeApps;
   final List<AppEntity> bottomApps;
   final List<FolderEntity> folders;
+
+  /// Every app in the portfolio, including the ones tucked inside folders.
+  /// Used by layouts that do not navigate through folders (classic mode).
+  final List<AppEntity> allApps;
   final AppEntity? openApp;
   final FolderEntity? openFolder;
   final List<AppEntity> folderApps;
@@ -34,6 +38,7 @@ class HomeLoaded extends HomeState {
     required this.homeApps,
     required this.bottomApps,
     required this.folders,
+    this.allApps = const [],
     this.openApp,
     this.openFolder,
     this.folderApps = const [],
@@ -44,6 +49,7 @@ class HomeLoaded extends HomeState {
     List<AppEntity>? homeApps,
     List<AppEntity>? bottomApps,
     List<FolderEntity>? folders,
+    List<AppEntity>? allApps,
     AppEntity? openApp,
     FolderEntity? openFolder,
     List<AppEntity>? folderApps,
@@ -55,6 +61,7 @@ class HomeLoaded extends HomeState {
       homeApps: homeApps ?? this.homeApps,
       bottomApps: bottomApps ?? this.bottomApps,
       folders: folders ?? this.folders,
+      allApps: allApps ?? this.allApps,
       openApp: clearOpenApp ? null : (openApp ?? this.openApp),
       openFolder: clearOpenFolder ? null : (openFolder ?? this.openFolder),
       folderApps: folderApps ?? this.folderApps,
@@ -67,6 +74,7 @@ class HomeLoaded extends HomeState {
         homeApps,
         bottomApps,
         folders,
+        allApps,
         openApp,
         openFolder,
         folderApps,
