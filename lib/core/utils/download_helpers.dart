@@ -24,8 +24,10 @@ class DownloadHelpers {
     try {
       if (kIsWeb) {
         // Web için dosyayı indir
-        // Eğer URL ise direkt kullan, asset path ise web asset URL'sine çevir
-        final href = _isAbsoluteUrl(url) ? url : '/${_toAssetPath(url)}';
+        // Eğer URL ise direkt kullan, asset path ise web asset URL'sine çevir.
+        // Göreli yol kullanıyoruz ki tarayıcı <base href> ile çözsün;
+        // böylece site alt dizinden (ör. /portfolio/) sunulsa da çalışır.
+        final href = _isAbsoluteUrl(url) ? url : _toAssetPath(url);
         return triggerBrowserDownload(href, fileName: fileName);
       } else {
         // Mobil için harici tarayıcıda aç
