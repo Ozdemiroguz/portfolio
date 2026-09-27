@@ -59,6 +59,32 @@ class PortfolioInfoPanelWidget extends StatelessWidget {
     return null;
   }
 
+  String? _getAppStoreUrl() {
+    try {
+      final contactApp = apps.firstWhere((app) => app.type == 'contact');
+      final contactData = contactApp.contactData;
+      if (contactData != null) {
+        for (var social in contactData.socials) {
+          if (social.platform.toLowerCase().contains('app store') ||
+              social.platform.toLowerCase().contains('appstore')) {
+            return social.url;
+          }
+        }
+      }
+    } catch (e) {
+      // ignore
+    }
+    return null;
+  }
+
+  Future<void> _launchWhatsApp() async {
+    const number = '905454542532';
+    final message = Uri.encodeComponent(
+      "Hi Oğuzhan, I found your portfolio and would like to chat.",
+    );
+    await UrlHelpers.launchURL('https://wa.me/$number?text=$message');
+  }
+
   String? _getCvUrl() {
     try {
       final cvApp = apps.firstWhere(
@@ -222,42 +248,48 @@ class PortfolioInfoPanelWidget extends StatelessWidget {
           ),
           const SizedBox(height: AppSizes.spacingMd),
 
-          // Action buttons - yan yana
+          // Tüm butonlar — kompakt + outline, mevcut estetik
           Wrap(
             spacing: AppSizes.spacingSm,
             runSpacing: AppSizes.spacingSm,
             children: [
-              // GitHub button
+              if (email != null)
+                _buildCompactButton(
+                  icon: Icons.email_rounded,
+                  label: tr('contact.emailMe'),
+                  onTap: () => _launchEmail(email),
+                ),
+              _buildCompactButton(
+                icon: Icons.chat_rounded,
+                label: tr('contact.whatsapp'),
+                onTap: _launchWhatsApp,
+              ),
+              if (cvUrl != null)
+                _buildCompactButton(
+                  icon: Icons.download_rounded,
+                  label: tr('portfolio.download'),
+                  onTap: () => DownloadHelpers.downloadPdf(
+                    cvUrl,
+                    fileName: 'Oguzhan-Ozdemir-CV.pdf',
+                  ),
+                ),
               if (githubUrl != null)
                 _buildCompactButton(
                   icon: Icons.code,
                   label: tr('portfolio.github'),
                   onTap: () => _launchUrl(githubUrl),
                 ),
-              // LinkedIn button
               if (linkedinUrl != null)
                 _buildCompactButton(
                   icon: Icons.work,
                   label: tr('portfolio.linkedin'),
                   onTap: () => _launchUrl(linkedinUrl),
                 ),
-              // Email button
-              if (email != null)
+              if (_getAppStoreUrl() != null)
                 _buildCompactButton(
-                  icon: Icons.email,
-                  label: tr('portfolio.connect'),
-                  onTap: () => _launchEmail(email),
-                ),
-              // CV Download button
-              if (cvUrl != null)
-                _buildCompactButton(
-                  icon: Icons.download,
-                  label: tr('portfolio.download'),
-                  onTap:
-                      () => DownloadHelpers.downloadPdf(
-                        cvUrl,
-                        fileName: 'Oguzhan-Ozdemir-CV.pdf',
-                      ),
+                  icon: Icons.apple,
+                  label: tr('about.viewAppStore'),
+                  onTap: () => _launchUrl(_getAppStoreUrl()!),
                 ),
             ],
           ),
@@ -266,6 +298,7 @@ class PortfolioInfoPanelWidget extends StatelessWidget {
     );
   }
 
+  // Outline buton - sade ama hissedilir
   Widget _buildCompactButton({
     required IconData icon,
     required String label,
@@ -273,28 +306,31 @@ class PortfolioInfoPanelWidget extends StatelessWidget {
   }) {
     return InkWell(
       onTap: onTap,
-      borderRadius: BorderRadius.circular(AppSizes.radiusXs),
+      borderRadius: BorderRadius.circular(AppSizes.radiusSm),
       child: Container(
         padding: const EdgeInsets.symmetric(
-          horizontal: AppSizes.paddingSm,
-          vertical: AppSizes.paddingXs,
+          horizontal: AppSizes.paddingMd,
+          vertical: AppSizes.paddingSm + 2,
         ),
         decoration: BoxDecoration(
-          color: AppColors.withOpacity(Colors.white, 0.1),
-          borderRadius: BorderRadius.circular(AppSizes.radiusXs),
-          border: Border.all(color: AppColors.withOpacity(Colors.white, 0.2)),
+          color: AppColors.withOpacity(Colors.white, 0.07),
+          borderRadius: BorderRadius.circular(AppSizes.radiusSm),
+          border: Border.all(
+            color: AppColors.withOpacity(AppColors.primary, 0.35),
+            width: 1,
+          ),
         ),
         child: Row(
           mainAxisSize: MainAxisSize.min,
           children: [
-            Icon(icon, color: AppColors.primary, size: 14),
-            const SizedBox(width: AppSizes.spacingXs / 2),
+            Icon(icon, color: AppColors.primary, size: 18),
+            const SizedBox(width: AppSizes.spacingXs + 2),
             Text(
               label,
               style: const TextStyle(
                 color: AppColors.textPrimary,
-                fontSize: 11,
-                fontWeight: FontWeight.w500,
+                fontSize: 13,
+                fontWeight: FontWeight.w600,
               ),
             ),
           ],

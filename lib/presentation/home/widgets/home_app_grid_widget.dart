@@ -23,17 +23,32 @@ class HomeAppGridWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    // Combine apps and folders into a single list
+    // 1) Sort apps by order field (recruiter-friendly priority)
+    final sortedApps = [...homeApps]
+      ..sort((a, b) => a.order.compareTo(b.order));
+
+    // 2) Sort folders by order field
+    final sortedFolders = [...folders]
+      ..sort((a, b) => a.order.compareTo(b.order));
+
+    // 3) Build final list — folders insert after first 3 apps (About, CV, Career)
+    // so Indie Apps + Projects appear high in the grid (before Achievement, Contact, etc.)
     final allItems = <_GridItem>[];
+    const folderInsertAfterIndex = 3;
 
-    // Add apps
-    for (var app in homeApps) {
-      allItems.add(_GridItem.app(app));
+    for (var i = 0; i < sortedApps.length; i++) {
+      allItems.add(_GridItem.app(sortedApps[i]));
+      if (i == folderInsertAfterIndex - 1) {
+        for (var folder in sortedFolders) {
+          allItems.add(_GridItem.folder(folder));
+        }
+      }
     }
-
-    // Add folders
-    for (var folder in folders) {
-      allItems.add(_GridItem.folder(folder));
+    // Fallback: if fewer than folderInsertAfterIndex apps, append folders at end
+    if (sortedApps.length < folderInsertAfterIndex) {
+      for (var folder in sortedFolders) {
+        allItems.add(_GridItem.folder(folder));
+      }
     }
 
     return LayoutBuilder(

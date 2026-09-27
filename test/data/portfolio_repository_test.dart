@@ -36,7 +36,7 @@ void main() {
       expect(ids.toSet().length, ids.length, reason: 'app ids must be unique');
     });
 
-    test('every folder resolves to its apps', () async {
+    test('every folder resolves to its active apps', () async {
       final folders = await repository.getFolders(AppStrings.defaultDomain);
 
       expect(folders, isNotEmpty);
@@ -45,8 +45,15 @@ void main() {
           AppStrings.defaultDomain,
           folder.appIds,
         );
-        expect(apps.length, folder.appIds.length,
-            reason: 'folder "${folder.title}" references a missing app');
+        // Folders may list apps that are switched off with isActive: false,
+        // so only require that what comes back belongs to the folder and
+        // that the folder is not empty.
+        expect(apps, isNotEmpty,
+            reason: 'folder "${folder.title}" resolves to no apps');
+        for (final app in apps) {
+          expect(folder.appIds, contains(app.id),
+              reason: 'folder "${folder.title}" returned a foreign app');
+        }
       }
     });
   });

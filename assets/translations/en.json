@@ -22,16 +22,19 @@
     "noData": "No about data available",
     "noDataAvailable": "No data available",
     "birthDate": "Birth Date",
+    "viewAppStore": "View on App Store",
+    "viewGitHub": "View on GitHub",
     "data": {
       "fullName": "Oğuzhan Özdemir",
-      "title": "Mobile & Backend Developer (Flutter, Swift, Node.js)",
-      "bio": "I am a developer with over three years of experience in mobile and backend development using Flutter, Swift, and Node.js. I have published more than six applications on the App Store and Play Store. My focus is on creating smart, innovative apps by integrating AI technologies such as OpenAI (ChatGPT) and Gemini into my projects. My goal is to combine my expertise in Flutter, native mobile, and AI development to build powerful, full-stack mobile solutions.",
+      "title": "Mobile Engineer · Flutter · Bloc · Subscription Stack",
+      "bio": "Mobile engineer with 3+ years of Flutter experience on iOS and Android. I work on production apps at Nodelabs (including a 4.7K-review rebuild that improved startup by ~44%) and publish utility & productivity apps on the App Store as an indie developer. Day-to-day I work with Bloc, RevenueCat, Firebase / Mixpanel analytics, and native bridges (Swift Vision / Kotlin OpenCV) across the full release lifecycle.",
       "location": "Istanbul, Turkey",
       "birthDate": "2002-03-30",
-      "education": "Computer Engineering — Eskisehir Osmangazi University (2020–2024)",
+      "education": "Computer Engineering — Eskisehir Osmangazi University (2020–2025)",
       "interests": {
         "mobileDevelopment": "Mobile Development",
-        "backendSystems": "Backend Systems",
+        "subscriptionMonetization": "Subscription Monetization",
+        "indieAppPublishing": "Indie App Publishing",
         "aiIntegration": "AI Integration",
         "uiUxDesign": "UI/UX Design",
         "openSourceProjects": "Open Source Projects"
@@ -91,7 +94,18 @@
       "provider": "Provider",
       "git": "Git",
       "mysql": "MySQL",
-      "express": "Express.js"
+      "express": "Express.js",
+      "revenuecat": "RevenueCat",
+      "admob": "AdMob",
+      "firebaseAnalytics": "Firebase Analytics",
+      "mixpanel": "Mixpanel",
+      "crashlytics": "Crashlytics",
+      "videosdk": "VideoSDK",
+      "websocket": "WebSocket",
+      "restApi": "REST API",
+      "iot": "IoT",
+      "appStore": "App Store Connect",
+      "appStoreConnect": "App Store Connect"
     }
   },
   "projects": {
@@ -209,6 +223,20 @@
         "analytics": "Performance analytics"
       }
     },
+    "imageflow": {
+      "title": "ImageFlow – Smart Image Processing",
+      "description": "An intelligent on-device image processing app that automatically detects faces and documents, then applies the appropriate pipeline. Features real-time camera overlays, ML Kit face detection, OCR-gated document edge detection with OpenCV/Vision, perspective correction, PDF generation, and batch processing. Built with Clean Architecture, native platform channels, and isolate-backed transforms for smooth UI performance.",
+      "features": {
+        "detection": "Auto face/document detection",
+        "overlay": "Real-time camera overlay",
+        "faceDetection": "ML Kit face detection pipeline",
+        "ocrEdge": "OCR + document edge detection",
+        "perspective": "Perspective correction & PDF generation",
+        "batch": "Batch processing with status tracking",
+        "native": "Native OpenCV & Vision integration",
+        "isolate": "Isolate-backed image transforms"
+      }
+    },
     "greenscore": {
       "title": "GreenScore – Recycling App",
       "description": "Developed during a Google DSC Hackathon; achieved second place. Integrated Gemini AI with advanced camera features for recycling detection and tracking.",
@@ -216,6 +244,31 @@
         "camera": "Camera AI recognition",
         "map": "Map integration",
         "leaderboard": "Leaderboard system"
+      }
+    },
+    "documentScan": {
+      "title": "document_scan — Headless Document Scanner",
+      "description": "Open-source Flutter package that detects a document's corners in live camera frames and photos, fully offline. Corner detection and perspective correction run through native Apple Vision (iOS) and OpenCV (Android) on a background isolate. Composable engine, not a fullscreen UI — the app owns the camera and the look. 160/160 pub points.",
+      "features": {
+        "offline": "Offline corner detection — no cloud round-trip",
+        "native": "Native Apple Vision (iOS) + OpenCV (Android)",
+        "perspective": "Perspective correction",
+        "isolate": "Isolate-based, keeps UI thread free",
+        "composable": "Composable engine, bring your own camera UI",
+        "pdf": "PDF export",
+        "pubPoints": "160/160 pub points, MIT licensed"
+      }
+    },
+    "imageCompressor": {
+      "title": "image_compressor — Compress to a Target Size",
+      "description": "Open-source Flutter package that compresses an image under a target file size in a single call. Native speed on iOS and Android, zero-config on web, with automatic orientation handling and large-image downscaling. 160/160 pub points.",
+      "features": {
+        "targetSize": "Target file size in one call — get an image under X KB",
+        "nativeSpeed": "Native compression speed on iOS + Android",
+        "web": "Zero-config web support",
+        "orientation": "Automatic EXIF orientation handling",
+        "largeImage": "Large-image downscaling without OOM",
+        "pubPoints": "160/160 pub points, MIT licensed"
       }
     }
   },
@@ -232,6 +285,10 @@
     "phone": "Phone",
     "address": "Address",
     "openEmail": "Open Email",
+    "emailMe": "Email Me",
+    "whatsapp": "WhatsApp",
+    "copyLink": "Copy Link",
+    "linkCopied": "Link copied!",
     "callPhone": "Call Phone",
     "openLink": "Open Link",
     "medium": {
@@ -303,7 +360,7 @@
   },
   "camera": {
     "title": "Camera",
-    "message": "You're Cute Enough"
+    "message": "You look amazing! 😍"
   },
   "gallery": {
     "title": "Gallery",
@@ -461,7 +518,10 @@
       "teamOf": "Team of {count}",
       "apk": "Download APK",
       "privateBuild": "Private build, details on request",
-      "swipeHint": "swipe"
+      "swipeHint": "swipe",
+      "package": "PUB.DEV PACKAGE",
+      "showMore": "Show all ({count} more)",
+      "showLess": "Show less"
     }
   }
 }

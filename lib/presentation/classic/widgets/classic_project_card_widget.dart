@@ -211,6 +211,10 @@ class _StatusTag extends StatelessWidget {
       label = tr('classic.projects.inProgress');
       color = AppColors.warning;
       icon = Icons.autorenew;
+    } else if (item.onPubDev) {
+      label = tr('classic.projects.package');
+      color = AppColors.primaryLight;
+      icon = Icons.inventory_2;
     } else if (item.isOpenSource) {
       label = tr('classic.projects.openSource');
       color = AppColors.primaryLight;
@@ -271,7 +275,9 @@ class _LinkBadges extends StatelessWidget {
         _BadgeData(Icons.android, tr('projects.playStore'), project.playStoreUrl!),
       if (item.isOpenSource)
         _BadgeData(Icons.code, tr('projects.github'), project.githubUrl!),
-      if (item.hasWebsite)
+      if (item.onPubDev)
+        _BadgeData(Icons.inventory_2, 'pub.dev', project.webUrl!)
+      else if (item.hasWebsite)
         _BadgeData(Icons.language, tr('projects.website'), project.webUrl!),
       if (item.hasDemo)
         _BadgeData(

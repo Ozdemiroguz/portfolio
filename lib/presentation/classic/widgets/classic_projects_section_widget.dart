@@ -21,7 +21,11 @@ class ClassicProjectsSectionWidget extends StatefulWidget {
 
 class _ClassicProjectsSectionWidgetState
     extends State<ClassicProjectsSectionWidget> {
+  /// Cards shown in the grid before the "show all" button.
+  static const _initialGridCount = 9;
+
   ProjectCategory _category = ProjectCategory.all;
+  bool _expanded = false;
   late List<ProjectShowcaseItem> _all = buildProjectShowcase(widget.projectApps);
 
   @override
@@ -48,7 +52,10 @@ class _ClassicProjectsSectionWidgetState
             for (final category in ProjectCategory.values)
               category: _all.where((item) => item.matches(category)).length,
           },
-          onSelected: (category) => setState(() => _category = category),
+          onSelected: (category) => setState(() {
+            _category = category;
+            _expanded = false;
+          }),
         ),
         const SizedBox(height: AppSizes.spacingLg),
         LayoutBuilder(
@@ -64,18 +71,58 @@ class _ClassicProjectsSectionWidgetState
             final columns = width >= 900 ? 3 : 2;
             const gap = AppSizes.spacingLg;
             final cardWidth = (width - gap * (columns - 1)) / columns;
-            return Wrap(
-              spacing: gap,
-              runSpacing: gap,
+            final shown = _expanded
+                ? visible
+                : visible.take(_initialGridCount).toList();
+            final hidden = visible.length - shown.length;
+            return Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                for (final item in visible)
-                  SizedBox(
-                    width: cardWidth,
-                    child: ClassicProjectCardWidget(
-                      item: item,
-                      onTap: () => showClassicProjectDetail(context, item.app),
+                Wrap(
+                  spacing: gap,
+                  runSpacing: gap,
+                  children: [
+                    for (final item in shown)
+                      SizedBox(
+                        width: cardWidth,
+                        child: ClassicProjectCardWidget(
+                          item: item,
+                          onTap: () =>
+                              showClassicProjectDetail(context, item.app),
+                        ),
+                      ),
+                  ],
+                ),
+                if (hidden > 0 || _expanded) ...[
+                  const SizedBox(height: AppSizes.spacingLg),
+                  Center(
+                    child: OutlinedButton.icon(
+                      onPressed: () => setState(() => _expanded = !_expanded),
+                      icon: Icon(
+                        _expanded ? Icons.expand_less : Icons.expand_more,
+                        size: AppSizes.iconXs,
+                      ),
+                      label: Text(
+                        _expanded
+                            ? tr('classic.projects.showLess')
+                            : tr(
+                                'classic.projects.showMore',
+                                namedArgs: {'count': '$hidden'},
+                              ),
+                      ),
+                      style: OutlinedButton.styleFrom(
+                        foregroundColor: AppColors.textPrimary,
+                        side: BorderSide(
+                          color: AppColors.withOpacity(Colors.white, 0.25),
+                        ),
+                        padding: const EdgeInsets.symmetric(
+                          horizontal: AppSizes.paddingLg,
+                          vertical: AppSizes.paddingMd,
+                        ),
+                      ),
                     ),
                   ),
+                ],
               ],
             );
           },
@@ -269,20 +316,35 @@ class _CarouselState extends State<_Carousel> {
         const SizedBox(height: AppSizes.spacingMd),
         Row(
           children: [
-            for (var i = 0; i < items.length; i++)
-              AnimatedContainer(
-                duration: const Duration(milliseconds: 200),
-                margin: const EdgeInsets.only(right: 6),
-                width: i == _page ? 20 : 8,
-                height: 8,
-                decoration: BoxDecoration(
-                  color: i == _page
-                      ? AppColors.primary
-                      : AppColors.withOpacity(Colors.white, 0.25),
+            // Dots for short lists; a slim progress bar once they would
+            // no longer fit on a phone.
+            if (items.length <= 8)
+              for (var i = 0; i < items.length; i++)
+                AnimatedContainer(
+                  duration: const Duration(milliseconds: 200),
+                  margin: const EdgeInsets.only(right: 6),
+                  width: i == _page ? 20 : 8,
+                  height: 8,
+                  decoration: BoxDecoration(
+                    color: i == _page
+                        ? AppColors.primary
+                        : AppColors.withOpacity(Colors.white, 0.25),
+                    borderRadius: BorderRadius.circular(AppSizes.radiusRound),
+                  ),
+                )
+            else
+              Expanded(
+                child: ClipRRect(
                   borderRadius: BorderRadius.circular(AppSizes.radiusRound),
+                  child: LinearProgressIndicator(
+                    value: (_page + 1) / items.length,
+                    minHeight: 6,
+                    backgroundColor: AppColors.withOpacity(Colors.white, 0.15),
+                    color: AppColors.primary,
+                  ),
                 ),
               ),
-            const Spacer(),
+            if (items.length <= 8) const Spacer() else const SizedBox(width: AppSizes.spacingMd),
             Text(
               '${_page + 1} / ${items.length}  ·  ${tr('classic.projects.swipeHint')}',
               style: const TextStyle(color: AppColors.textTertiary, fontSize: 12),

@@ -22,16 +22,19 @@
     "noData": "Hakkımda verisi bulunamadı",
     "noDataAvailable": "Veri bulunamadı",
     "birthDate": "Doğum Tarihi",
+    "viewAppStore": "App Store'da Görüntüle",
+    "viewGitHub": "GitHub'da Görüntüle",
     "data": {
       "fullName": "Oğuzhan Özdemir",
-      "title": "Mobil & Backend Geliştirici (Flutter, Swift, Node.js)",
-      "bio": "Flutter, Swift ve Node.js kullanarak mobil ve backend geliştirmede üç yıldan fazla deneyime sahip bir geliştiriciyim. App Store ve Play Store'da altıdan fazla uygulama yayınladım. Odak noktam, projelerime OpenAI (ChatGPT) ve Gemini gibi AI teknolojilerini entegre ederek akıllı, yenilikçi uygulamalar oluşturmaktır. Hedefim, Flutter, native mobil ve AI geliştirme konularındaki uzmanlığımı birleştirerek güçlü, full-stack mobil çözümler inşa etmektir.",
+      "title": "Mobile Engineer · Flutter · Bloc · Subscription Stack",
+      "bio": "3+ yıl iOS ve Android için Flutter ile production uygulama geliştiren mobil mühendisim. Nodelabs'ta production uygulamalar üzerinde çalışıyorum (4.7K yorumlu bir uygulamanın mimari yenilemesinde başlatma süresini ~%44 iyileştirdim) ve indie geliştirici olarak App Store'da utility & productivity uygulamaları yayınlıyorum. Günlük çalışmamda Bloc, RevenueCat, Firebase / Mixpanel analitiği ve native bridge (Swift Vision / Kotlin OpenCV) ile birlikte tüm release yaşam döngüsünde rahatım.",
       "location": "İstanbul, Türkiye",
       "birthDate": "2002-03-30",
-      "education": "Bilgisayar Mühendisliği — Eskişehir Osmangazi Üniversitesi (2020–2024)",
+      "education": "Bilgisayar Mühendisliği — Eskişehir Osmangazi Üniversitesi (2020–2025)",
       "interests": {
         "mobileDevelopment": "Mobil Geliştirme",
-        "backendSystems": "Backend Sistemler",
+        "subscriptionMonetization": "Subscription Monetization",
+        "indieAppPublishing": "Indie App Publishing",
         "aiIntegration": "AI Entegrasyonu",
         "uiUxDesign": "UI/UX Tasarım",
         "openSourceProjects": "Açık Kaynak Projeler"
@@ -91,7 +94,18 @@
       "provider": "Provider",
       "git": "Git",
       "mysql": "MySQL",
-      "express": "Express.js"
+      "express": "Express.js",
+      "revenuecat": "RevenueCat",
+      "admob": "AdMob",
+      "firebaseAnalytics": "Firebase Analytics",
+      "mixpanel": "Mixpanel",
+      "crashlytics": "Crashlytics",
+      "videosdk": "VideoSDK",
+      "websocket": "WebSocket",
+      "restApi": "REST API",
+      "iot": "IoT",
+      "appStore": "App Store Connect",
+      "appStoreConnect": "App Store Connect"
     }
   },
   "projects": {
@@ -209,6 +223,20 @@
         "analytics": "Performans analitiği"
       }
     },
+    "imageflow": {
+      "title": "ImageFlow – Akıllı Görüntü İşleme",
+      "description": "Cihaz üzerinde çalışan akıllı bir görüntü işleme uygulaması. Görüntülerin yüz mü yoksa doküman mı olduğunu otomatik olarak algılayıp uygun işleme hattını uygular. Gerçek zamanlı kamera overlay, ML Kit yüz algılama, OCR destekli doküman kenar algılama (OpenCV/Vision), perspektif düzeltme, PDF oluşturma ve toplu işleme özellikleri sunar. Clean Architecture, native platform kanalları ve isolate destekli dönüşümlerle inşa edilmiştir.",
+      "features": {
+        "detection": "Otomatik yüz/doküman algılama",
+        "overlay": "Gerçek zamanlı kamera overlay",
+        "faceDetection": "ML Kit yüz algılama pipeline'ı",
+        "ocrEdge": "OCR + doküman kenar algılama",
+        "perspective": "Perspektif düzeltme & PDF oluşturma",
+        "batch": "Durum takipli toplu işleme",
+        "native": "Native OpenCV & Vision entegrasyonu",
+        "isolate": "Isolate destekli görüntü dönüşümleri"
+      }
+    },
     "greenscore": {
       "title": "GreenScore – Recycling App",
       "description": "Google DSC Hackathon sırasında geliştirildi; ikinci derece elde etti. Geri dönüşüm algılama ve takibi için gelişmiş kamera özellikleri ile Gemini AI entegre edildi.",
@@ -216,6 +244,31 @@
         "camera": "Kamera AI tanıma",
         "map": "Harita entegrasyonu",
         "leaderboard": "Liderlik tablosu sistemi"
+      }
+    },
+    "documentScan": {
+      "title": "document_scan — Başsız Belge Tarayıcı",
+      "description": "Canlı kamera karelerinde ve fotoğraflarda belge köşelerini tamamen çevrimdışı tespit eden açık kaynak Flutter paketi. Köşe tespiti ve perspektif düzeltme, arka plan isolate'inde native Apple Vision (iOS) ve OpenCV (Android) üzerinden çalışır. Tam ekran bir arayüz değil, birleştirilebilir bir motor — kamera ve görünüm uygulamanın kontrolünde. 160/160 pub puanı.",
+      "features": {
+        "offline": "Çevrimdışı köşe tespiti — buluta gidiş yok",
+        "native": "Native Apple Vision (iOS) + OpenCV (Android)",
+        "perspective": "Perspektif düzeltme",
+        "isolate": "Isolate tabanlı, arayüz akıcı kalır",
+        "composable": "Birleştirilebilir motor, kamera arayüzü sende",
+        "pdf": "PDF dışa aktarma",
+        "pubPoints": "160/160 pub puanı, MIT lisanslı"
+      }
+    },
+    "imageCompressor": {
+      "title": "image_compressor — Hedef Boyuta Sıkıştırma",
+      "description": "Bir görseli tek çağrıda hedeflenen dosya boyutunun altına sıkıştıran açık kaynak Flutter paketi. iOS ve Android'de native hız, web'de sıfır yapılandırma; otomatik yön düzeltme ve büyük görsel ölçekleme dahil. 160/160 pub puanı.",
+      "features": {
+        "targetSize": "Tek çağrıda hedef boyut — X KB altına indir",
+        "nativeSpeed": "iOS + Android'de native sıkıştırma hızı",
+        "web": "Sıfır yapılandırmayla web desteği",
+        "orientation": "Otomatik EXIF yön düzeltme",
+        "largeImage": "Bellek taşmadan büyük görsel ölçekleme",
+        "pubPoints": "160/160 pub puanı, MIT lisanslı"
       }
     }
   },
@@ -232,6 +285,10 @@
     "phone": "Telefon",
     "address": "Adres",
     "openEmail": "E-postayı Aç",
+    "emailMe": "E-posta Gönder",
+    "whatsapp": "WhatsApp",
+    "copyLink": "Bağlantıyı Kopyala",
+    "linkCopied": "Bağlantı kopyalandı!",
     "callPhone": "Telefonu Ara",
     "openLink": "Bağlantıyı Aç",
     "medium": {
@@ -303,7 +360,7 @@
   },
   "camera": {
     "title": "Kamera",
-    "message": "Yeterince Tatlısın"
+    "message": "Harika görünüyorsun! 😍"
   },
   "gallery": {
     "title": "Galeri",
@@ -461,7 +518,10 @@
       "teamOf": "{count} kişilik ekip",
       "apk": "APK indir",
       "privateBuild": "Özel derleme, detaylar talep üzerine",
-      "swipeHint": "kaydır"
+      "swipeHint": "kaydır",
+      "package": "PUB.DEV PAKETİ",
+      "showMore": "Tümünü göster ({count} tane daha)",
+      "showLess": "Daha az göster"
     }
   }
 }

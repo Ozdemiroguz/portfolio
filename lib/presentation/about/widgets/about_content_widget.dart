@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:easy_localization/easy_localization.dart';
+import 'package:url_launcher/url_launcher.dart';
 import '../../../core/constants/app_colors.dart';
 import '../../../core/constants/app_sizes.dart';
 import '../../../domain/entities/about_data_entity.dart';
@@ -84,8 +85,107 @@ class AboutContentWidget extends StatelessWidget {
               ),
             );
           }),
+
+          const SizedBox(height: AppSizes.spacingMd),
+
+          // CTA buttons — App Store + GitHub
+          Row(
+            children: [
+              Expanded(
+                child: _CtaButton(
+                  icon: Icons.apple,
+                  label: tr('about.viewAppStore'),
+                  color: const Color(0xFF0A84FF),
+                  onTap: () => _launchUrl(
+                    'https://apps.apple.com/us/developer/oguzhan-0zdemir/id1780829933',
+                  ),
+                ),
+              ),
+              const SizedBox(width: AppSizes.spacingSm),
+              Expanded(
+                child: _CtaButton(
+                  icon: Icons.code_rounded,
+                  label: tr('about.viewGitHub'),
+                  color: const Color(0xFF6E5494),
+                  onTap: () => _launchUrl('https://github.com/Ozdemiroguz'),
+                ),
+              ),
+            ],
+          ),
+
           const SizedBox(height: 100), // Bottom spacing
         ],
+      ),
+    );
+  }
+
+  static Future<void> _launchUrl(String url) async {
+    final uri = Uri.parse(url);
+    if (await canLaunchUrl(uri)) {
+      await launchUrl(uri, mode: LaunchMode.externalApplication);
+    }
+  }
+}
+
+class _CtaButton extends StatelessWidget {
+  final IconData icon;
+  final String label;
+  final Color color;
+  final VoidCallback onTap;
+
+  const _CtaButton({
+    required this.icon,
+    required this.label,
+    required this.color,
+    required this.onTap,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    return Material(
+      color: Colors.transparent,
+      child: InkWell(
+        onTap: onTap,
+        borderRadius: BorderRadius.circular(AppSizes.radiusMd),
+        child: Container(
+          padding: const EdgeInsets.symmetric(
+            vertical: AppSizes.paddingMd,
+            horizontal: AppSizes.paddingMd,
+          ),
+          decoration: BoxDecoration(
+            gradient: LinearGradient(
+              begin: Alignment.topLeft,
+              end: Alignment.bottomRight,
+              colors: [color, color.withValues(alpha: 0.78)],
+            ),
+            borderRadius: BorderRadius.circular(AppSizes.radiusMd),
+            boxShadow: [
+              BoxShadow(
+                color: color.withValues(alpha: 0.35),
+                blurRadius: 12,
+                offset: const Offset(0, 4),
+              ),
+            ],
+          ),
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              Icon(icon, color: Colors.white, size: 18),
+              const SizedBox(width: AppSizes.spacingXs),
+              Flexible(
+                child: Text(
+                  label,
+                  overflow: TextOverflow.ellipsis,
+                  style: const TextStyle(
+                    color: Colors.white,
+                    fontSize: 13,
+                    fontWeight: FontWeight.w700,
+                  ),
+                ),
+              ),
+            ],
+          ),
+        ),
       ),
     );
   }

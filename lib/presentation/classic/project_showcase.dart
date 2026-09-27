@@ -41,11 +41,16 @@ class ProjectShowcaseItem {
     }
   }
 
-  /// Higher scores surface first: shipped store apps, then open source.
+  /// Published on pub.dev (Flutter/Dart package).
+  bool get onPubDev => project.webUrl?.startsWith('https://pub.dev/') ?? false;
+
+  /// Higher scores surface first. Store listings dominate so shipped apps
+  /// always precede everything else; the rest breaks ties.
   int get featuredScore =>
-      (onAppStore ? 2 : 0) +
-      (onPlayStore ? 2 : 0) +
-      (isOpenSource ? 1 : 0) +
+      (onAppStore ? 10 : 0) +
+      (onPlayStore ? 10 : 0) +
+      (onPubDev ? 4 : 0) +
+      (isOpenSource ? 3 : 0) +
       (hasWebsite ? 1 : 0) +
       (project.images.isNotEmpty ? 1 : 0);
 

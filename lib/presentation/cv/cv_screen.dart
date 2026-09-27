@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:easy_localization/easy_localization.dart';
+import 'package:url_launcher/url_launcher.dart';
 import '../../domain/entities/app_entity.dart';
 import '../../core/constants/app_colors.dart';
 import '../../core/constants/app_sizes.dart';
@@ -48,110 +50,72 @@ class CvScreen extends StatelessWidget {
                         ),
                       ),
                     ),
-                    child: Row(
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        // Geri butonu için boşluk (AppScreenWrapperWidget'daki geri butonu için)
-                        const SizedBox(width: 60),
-                        // Tarih - sol taraf
-                        Expanded(
-                          child: Column(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: [
-                              Text(
-                                tr('cv.title'),
-                                style: const TextStyle(
-                                  color: AppColors.textPrimary,
-                                  fontSize: 20,
-                                  fontWeight: FontWeight.bold,
-                                ),
+                        // Baslik satiri - geri butonuna yer birakir
+                        Row(
+                          children: [
+                            // Geri butonu için boşluk (AppScreenWrapperWidget'daki geri butonu için)
+                            const SizedBox(width: 60),
+                            Expanded(
+                              child: Column(
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: [
+                                  Text(
+                                    tr('cv.title'),
+                                    maxLines: 1,
+                                    overflow: TextOverflow.ellipsis,
+                                    style: const TextStyle(
+                                      color: AppColors.textPrimary,
+                                      fontSize: 20,
+                                      fontWeight: FontWeight.bold,
+                                    ),
+                                  ),
+                                  const SizedBox(height: 4),
+                                  Text(
+                                    currentDate,
+                                    maxLines: 1,
+                                    overflow: TextOverflow.ellipsis,
+                                    style: TextStyle(
+                                      color: AppColors.textSecondary,
+                                      fontSize: 14,
+                                    ),
+                                  ),
+                                ],
                               ),
-                              const SizedBox(height: 4),
-                              Text(
-                                currentDate,
-                                style: TextStyle(
-                                  color: AppColors.textSecondary,
-                                  fontSize: 14,
-                                ),
-                              ),
-                            ],
-                          ),
+                            ),
+                          ],
                         ),
-                        // İndirme butonu - sağ taraf
-                        GestureDetector(
-                          onTap: () async {
-                            final success = await DownloadHelpers.downloadPdf(
-                              pdfUrl,
-                              fileName: 'Oguzhan-Ozdemir-CV.pdf',
-                            );
-                            if (success && context.mounted) {
-                              ScaffoldMessenger.of(context).showSnackBar(
-                                SnackBar(
-                                  content: Row(
-                                    mainAxisSize: MainAxisSize.min,
-                                    children: [
-                                      const Icon(
-                                        Icons.check_circle,
-                                        color: Colors.white,
-                                        size: 18,
-                                      ),
-                                      const SizedBox(width: AppSizes.spacingXs),
-                                      Text(
-                                        tr('cv.downloadStarted'),
-                                        style: const TextStyle(
-                                          color: Colors.white,
-                                          fontSize: 12,
-                                        ),
-                                      ),
-                                    ],
-                                  ),
-                                  backgroundColor: AppColors.success,
-                                  behavior: SnackBarBehavior.floating,
-                                  duration: const Duration(seconds: 2),
-                                  margin: const EdgeInsets.only(
-                                    bottom: 20,
-                                    left: 16,
-                                    right: 16,
-                                  ),
-                                ),
-                              );
-                            }
-                          },
-                          child: Container(
-                            padding: const EdgeInsets.symmetric(
-                              horizontal: AppSizes.paddingMd,
-                              vertical: AppSizes.paddingSm,
-                            ),
-                            decoration: BoxDecoration(
+                        const SizedBox(height: AppSizes.paddingMd),
+                        // Aksiyon butonlari - kendi satirinda
+                        Row(
+                          children: [
+                            // Email
+                            _buildIconAction(
+                              icon: Icons.email_rounded,
+                              tooltip: tr('contact.emailMe'),
                               color: AppColors.primary,
-                              borderRadius: BorderRadius.circular(AppSizes.radiusMd),
-                              boxShadow: [
-                                BoxShadow(
-                                  color: AppColors.primary.withValues(alpha: 0.3),
-                                  blurRadius: 8,
-                                  offset: const Offset(0, 2),
-                                ),
-                              ],
+                              onTap: () => _launchEmail(context),
                             ),
-                            child: Row(
-                              mainAxisSize: MainAxisSize.min,
-                              children: [
-                                const Icon(
-                                  Icons.download,
-                                  color: Colors.white,
-                                  size: 18,
-                                ),
-                                const SizedBox(width: AppSizes.spacingXs),
-                                Text(
-                                  tr('cv.download'),
-                                  style: const TextStyle(
-                                    color: Colors.white,
-                                    fontSize: 14,
-                                    fontWeight: FontWeight.w600,
-                                  ),
-                                ),
-                              ],
+                            const SizedBox(width: 8),
+                            // Copy link
+                            _buildIconAction(
+                              icon: Icons.link_rounded,
+                              tooltip: tr('contact.copyLink'),
+                              color: AppColors.primary,
+                              onTap: () => _copyLink(context, pdfUrl),
                             ),
-                          ),
+                            const SizedBox(width: 8),
+                            // Download (primary CTA, filled)
+                            Expanded(
+                              child: _buildPrimaryDownload(
+                                context: context,
+                                pdfUrl: pdfUrl,
+                                label: tr('cv.download'),
+                              ),
+                            ),
+                          ],
                         ),
                       ],
                     ),
@@ -240,6 +204,139 @@ class CvScreen extends StatelessWidget {
                     ],
                   ),
                 ),
+      ),
+    );
+  }
+
+  // Compact icon-only action button (Email + Copy link)
+  Widget _buildIconAction({
+    required IconData icon,
+    required String tooltip,
+    required Color color,
+    required VoidCallback onTap,
+  }) {
+    return Tooltip(
+      message: tooltip,
+      child: Material(
+        color: Colors.transparent,
+        child: InkWell(
+          onTap: onTap,
+          borderRadius: BorderRadius.circular(AppSizes.radiusMd),
+          child: Container(
+            padding: const EdgeInsets.all(10),
+            decoration: BoxDecoration(
+              color: color.withValues(alpha: 0.12),
+              borderRadius: BorderRadius.circular(AppSizes.radiusMd),
+              border: Border.all(color: color.withValues(alpha: 0.3)),
+            ),
+            child: Icon(icon, color: color, size: 18),
+          ),
+        ),
+      ),
+    );
+  }
+
+  // Primary Download CTA - filled gradient
+  Widget _buildPrimaryDownload({
+    required BuildContext context,
+    required String pdfUrl,
+    required String label,
+  }) {
+    return GestureDetector(
+      onTap: () async {
+        final success = await DownloadHelpers.downloadPdf(
+          pdfUrl,
+          fileName: 'Oguzhan-Ozdemir-CV.pdf',
+        );
+        if (success && context.mounted) {
+          _showSuccessSnackBar(context, tr('cv.downloadStarted'));
+        }
+      },
+      child: Container(
+        padding: const EdgeInsets.symmetric(
+          horizontal: AppSizes.paddingMd,
+          vertical: AppSizes.paddingSm,
+        ),
+        decoration: BoxDecoration(
+          gradient: LinearGradient(
+            begin: Alignment.topLeft,
+            end: Alignment.bottomRight,
+            colors: [
+              AppColors.primary,
+              AppColors.primary.withValues(alpha: 0.75),
+            ],
+          ),
+          borderRadius: BorderRadius.circular(AppSizes.radiusMd),
+          boxShadow: [
+            BoxShadow(
+              color: AppColors.primary.withValues(alpha: 0.4),
+              blurRadius: 10,
+              offset: const Offset(0, 3),
+            ),
+          ],
+        ),
+        child: Row(
+          mainAxisSize: MainAxisSize.min,
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            const Icon(Icons.download_rounded, color: Colors.white, size: 18),
+            const SizedBox(width: AppSizes.spacingXs),
+            Flexible(
+              child: Text(
+                label,
+                maxLines: 1,
+                overflow: TextOverflow.ellipsis,
+                style: const TextStyle(
+                  color: Colors.white,
+                  fontSize: 14,
+                  fontWeight: FontWeight.w700,
+                ),
+              ),
+            ),
+          ],
+        ),
+      ),
+    );
+  }
+
+  Future<void> _launchEmail(BuildContext context) async {
+    final subject = Uri.encodeComponent('CV inquiry');
+    final body = Uri.encodeComponent(
+      "Hi Oğuzhan, I reviewed your CV and would like to chat.",
+    );
+    final uri = Uri.parse(
+      'mailto:ozdemiroguzhan55@gmail.com?subject=$subject&body=$body',
+    );
+    if (await canLaunchUrl(uri)) {
+      await launchUrl(uri);
+    }
+  }
+
+  Future<void> _copyLink(BuildContext context, String pdfUrl) async {
+    await Clipboard.setData(ClipboardData(text: pdfUrl));
+    if (context.mounted) {
+      _showSuccessSnackBar(context, tr('contact.linkCopied'));
+    }
+  }
+
+  void _showSuccessSnackBar(BuildContext context, String message) {
+    ScaffoldMessenger.of(context).showSnackBar(
+      SnackBar(
+        content: Row(
+          mainAxisSize: MainAxisSize.min,
+          children: [
+            const Icon(Icons.check_circle, color: Colors.white, size: 18),
+            const SizedBox(width: AppSizes.spacingXs),
+            Text(
+              message,
+              style: const TextStyle(color: Colors.white, fontSize: 12),
+            ),
+          ],
+        ),
+        backgroundColor: AppColors.success,
+        behavior: SnackBarBehavior.floating,
+        duration: const Duration(seconds: 2),
+        margin: const EdgeInsets.only(bottom: 20, left: 16, right: 16),
       ),
     );
   }
