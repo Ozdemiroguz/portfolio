@@ -292,6 +292,7 @@ class PortfolioRepositoryImpl implements PortfolioRepository {
               ?.map((e) => e.toString())
               .toList() ??
           [],
+      featuredRank: data['featuredRank'] as int?,
       // Translation keys (optional)
       titleKey: data['titleKey'] as String?,
       descriptionKey: data['descriptionKey'] as String?,

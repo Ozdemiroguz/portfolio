@@ -44,13 +44,28 @@ class ProjectShowcaseItem {
   /// Published on pub.dev (Flutter/Dart package).
   bool get onPubDev => project.webUrl?.startsWith('https://pub.dev/') ?? false;
 
-  /// Higher scores surface first. Store listings dominate so shipped apps
-  /// always precede everything else; the rest breaks ties.
+  bool get isOwn => project.ownProject;
+
+  /// Explicit showcase position from the data, if any.
+  int? get featuredRank => project.featuredRank;
+
+  /// Tier for the automatic ordering: the owner's own shipped apps and
+  /// packages first, then own open source, then client work.
+  int get tier {
+    if (isOwn && isPublished) return 6;
+    if (isOwn && onPubDev) return 5;
+    if (isOwn && isOpenSource) return 4;
+    if (isPublished) return 3;
+    if (isOpenSource) return 2;
+    return isOwn ? 1 : 0;
+  }
+
+  /// Tie-breaker within a tier: more channels and visuals rank higher.
   int get featuredScore =>
-      (onAppStore ? 10 : 0) +
-      (onPlayStore ? 10 : 0) +
-      (onPubDev ? 4 : 0) +
-      (isOpenSource ? 3 : 0) +
+      (onAppStore ? 4 : 0) +
+      (onPlayStore ? 4 : 0) +
+      (onPubDev ? 3 : 0) +
+      (isOpenSource ? 2 : 0) +
       (hasWebsite ? 1 : 0) +
       (project.images.isNotEmpty ? 1 : 0);
 
@@ -66,6 +81,17 @@ List<ProjectShowcaseItem> buildProjectShowcase(List<AppEntity> apps) {
   }
   final indexed = items.asMap().entries.toList()
     ..sort((a, b) {
+      // 1. Explicit featuredRank (ascending) beats everything.
+      final ra = a.value.featuredRank;
+      final rb = b.value.featuredRank;
+      if (ra != null || rb != null) {
+        if (ra == null) return 1;
+        if (rb == null) return -1;
+        if (ra != rb) return ra.compareTo(rb);
+      }
+      // 2. Tier, 3. score, 4. data order.
+      final byTier = b.value.tier.compareTo(a.value.tier);
+      if (byTier != 0) return byTier;
       final byScore = b.value.featuredScore.compareTo(a.value.featuredScore);
       return byScore != 0 ? byScore : a.key.compareTo(b.key);
     });

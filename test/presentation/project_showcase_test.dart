@@ -26,16 +26,29 @@ void main() {
       expect(items.length, greaterThanOrEqualTo(9));
     });
 
-    test('store apps come before projects without a store listing', () {
-      final firstUnpublished = items.indexWhere((item) => !item.isPublished);
-      final lastPublished = items.lastIndexWhere((item) => item.isPublished);
-      expect(lastPublished, lessThan(firstUnpublished));
+    test('explicitly ranked projects lead, in rank order', () {
+      final ranked = items.where((i) => i.featuredRank != null).toList();
+      expect(ranked, isNotEmpty);
+      expect(items.take(ranked.length).toList(), ranked);
+      for (var i = 1; i < ranked.length; i++) {
+        expect(ranked[i].featuredRank!, greaterThan(ranked[i - 1].featuredRank!));
+      }
+      expect(items.first.app.id, 'project_subi');
     });
 
-    test('scores are non-increasing', () {
-      for (var i = 1; i < items.length; i++) {
-        expect(items[i].featuredScore,
-            lessThanOrEqualTo(items[i - 1].featuredScore));
+    test('own work precedes client work once explicit ranks are exhausted',
+        () {
+      final rest = items.where((i) => i.featuredRank == null).toList();
+      final firstClient = rest.indexWhere((i) => !i.isOwn);
+      final lastOwnShipped = rest.lastIndexWhere(
+          (i) => i.isOwn && (i.isPublished || i.onPubDev || i.isOpenSource));
+      expect(lastOwnShipped, lessThan(firstClient));
+    });
+
+    test('tiers are non-increasing after the ranked block', () {
+      final rest = items.where((i) => i.featuredRank == null).toList();
+      for (var i = 1; i < rest.length; i++) {
+        expect(rest[i].tier, lessThanOrEqualTo(rest[i - 1].tier));
       }
     });
 

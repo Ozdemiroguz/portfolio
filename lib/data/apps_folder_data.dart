@@ -64,6 +64,7 @@ const List<Map<String, dynamic>> appsFolder = [
           'role': 'Creator & Developer',
           'roleKey': 'projects.role.creator',
           'ownProject': true,
+          'featuredRank': 6,
           'clientName': null,
           'displayOn': {'home': true, 'portfolio': true},
           'images': [
@@ -294,6 +295,7 @@ const List<Map<String, dynamic>> appsFolder = [
           'role': 'Full Stack Developer',
           'roleKey': 'projects.role.fullStack',
           'ownProject': true,
+          'featuredRank': 5,
           'clientName': null,
           'displayOn': {'home': true, 'portfolio': true},
           'images': [
@@ -482,6 +484,7 @@ const List<Map<String, dynamic>> appsFolder = [
           'role': 'Creator & Developer',
           'roleKey': 'projects.role.creator',
           'ownProject': true,
+          'featuredRank': 4,
           'clientName': null,
           'displayOn': {'home': true, 'portfolio': true},
           'images': [
@@ -924,6 +927,7 @@ const List<Map<String, dynamic>> appsFolder = [
           'role': 'Creator & Developer',
           'roleKey': 'projects.role.creator',
           'ownProject': true,
+          'featuredRank': 1,
           'clientName': null,
           'displayOn': {'home': true, 'portfolio': true},
           'images': [],
@@ -1260,6 +1264,7 @@ const List<Map<String, dynamic>> appsFolder = [
           'role': 'Creator & Maintainer',
           'roleKey': 'projects.role.creator',
           'ownProject': true,
+          'featuredRank': 2,
           'clientName': null,
           'displayOn': {'home': true, 'portfolio': true},
           'images': [],
@@ -1323,6 +1328,7 @@ const List<Map<String, dynamic>> appsFolder = [
           'role': 'Creator & Maintainer',
           'roleKey': 'projects.role.creator',
           'ownProject': true,
+          'featuredRank': 3,
           'clientName': null,
           'displayOn': {'home': true, 'portfolio': true},
           'images': [],

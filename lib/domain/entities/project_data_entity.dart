@@ -20,7 +20,11 @@ class ProjectEntity extends Equatable {
   final bool ownProject;
   final String? clientName;
   final List<String> images;
-  
+
+  /// Explicit position in the showcase (1 = first). Null means "let the
+  /// ranking rules decide".
+  final int? featuredRank;
+
   // Translation keys (optional)
   final String? titleKey;
   final String? descriptionKey;
@@ -48,6 +52,7 @@ class ProjectEntity extends Equatable {
     required this.ownProject,
     this.clientName,
     required this.images,
+    this.featuredRank,
     this.titleKey,
     this.descriptionKey,
     this.technologiesKeys,
@@ -76,6 +81,7 @@ class ProjectEntity extends Equatable {
         ownProject,
         clientName,
         images,
+        featuredRank,
         titleKey,
         descriptionKey,
         technologiesKeys,
