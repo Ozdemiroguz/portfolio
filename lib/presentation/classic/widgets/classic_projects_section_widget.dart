@@ -242,7 +242,7 @@ class _CarouselState extends State<_Carousel> {
     final items = widget.items;
     // Visual header + text block. The card clips anything beyond this, so
     // taller content degrades gracefully instead of overflowing.
-    const cardHeight = 470.0;
+    const cardHeight = 440.0;
 
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
