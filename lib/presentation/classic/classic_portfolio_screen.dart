@@ -40,13 +40,20 @@ class _ClassicPortfolioScreenState extends State<ClassicPortfolioScreen> {
   }
 
   void _scrollTo(GlobalKey key) {
-    final context = key.currentContext;
-    if (context == null) return;
-    Scrollable.ensureVisible(
-      context,
+    final targetContext = key.currentContext;
+    final scrollContext = _scrollController.position.context.storageContext;
+    final target = targetContext?.findRenderObject();
+    final viewport = scrollContext.findRenderObject();
+    if (target is! RenderBox || viewport is! RenderBox) return;
+
+    // Land the section heading just below the sticky nav bar.
+    final top = target.localToGlobal(Offset.zero, ancestor: viewport).dy;
+    final offset = (_scrollController.offset + top - ClassicNavBarWidget.height)
+        .clamp(0.0, _scrollController.position.maxScrollExtent);
+    _scrollController.animateTo(
+      offset,
       duration: const Duration(milliseconds: 450),
       curve: Curves.easeInOutCubic,
-      alignment: 0,
     );
   }
 
