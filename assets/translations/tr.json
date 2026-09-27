@@ -441,12 +441,27 @@
       "achievements": "Başarılar",
       "contact": "İletişim"
     },
-    "projectsSubtitle": "Geliştirip yayına aldığım ürünlerden bir seçki.",
+    "projectsSubtitle": "Yayınlanmış uygulamalar, açık kaynak işler ve müşteri projeleri. İlgini çekene göre filtrele.",
     "careerSubtitle": "Çalıştığım yerler ve orada yaptıklarım.",
     "achievementsSubtitle": "Sertifikalar, ödüller ve kilometre taşları.",
     "contactSubtitle": "Yeni projelere ve iş birliklerine açığım. Aşağıdaki kanallardan ulaşabilirsin.",
     "tryInteractive": "İnteraktif modu dene",
     "tryInteractiveDescription": "Aynı portföy, keşfedebileceğin bir telefon olarak. Uygulamalar, klasörler ve birkaç oyun seni bekliyor.",
-    "openPhoneMode": "Telefon modunu aç"
+    "openPhoneMode": "Telefon modunu aç",
+    "projects": {
+      "filterAll": "Tümü",
+      "filterPublished": "Mağazalarda",
+      "filterOpenSource": "Açık kaynak",
+      "filterWork": "İş & ekip projeleri",
+      "liveOnStores": "YAYINDA",
+      "inTesting": "TESTTE",
+      "inProgress": "DEVAM EDİYOR",
+      "openSource": "AÇIK KAYNAK",
+      "caseStudy": "VAKA ÇALIŞMASI",
+      "teamOf": "{count} kişilik ekip",
+      "apk": "APK indir",
+      "privateBuild": "Özel derleme, detaylar talep üzerine",
+      "swipeHint": "kaydır"
+    }
   }
 }

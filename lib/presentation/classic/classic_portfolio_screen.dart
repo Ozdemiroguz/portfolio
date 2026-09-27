@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:easy_localization/easy_localization.dart';
 import '../../core/constants/app_sizes.dart';
 import '../../core/utils/translation_helpers.dart';
-import '../../domain/entities/app_entity.dart';
 import '../../domain/entities/contact_data_entity.dart';
 import '../achievement/widgets/achievement_list_widget.dart';
 import '../career/widgets/career_timeline_widget.dart';
@@ -13,8 +12,7 @@ import 'classic_apps.dart';
 import 'widgets/classic_footer_widget.dart';
 import 'widgets/classic_hero_widget.dart';
 import 'widgets/classic_nav_bar_widget.dart';
-import 'widgets/classic_project_card_widget.dart';
-import 'widgets/classic_project_detail_dialog.dart';
+import 'widgets/classic_projects_section_widget.dart';
 import 'widgets/classic_section_widget.dart';
 
 /// Conventional single-page portfolio built from the same data as the
@@ -115,7 +113,7 @@ class _ClassicPortfolioScreenState extends State<ClassicPortfolioScreen> {
                     key: _projectsKey,
                     title: tr('classic.nav.projects'),
                     subtitle: tr('classic.projectsSubtitle'),
-                    child: _ProjectsGrid(projects: projects),
+                    child: ClassicProjectsSectionWidget(projectApps: projects),
                   ),
                 if (career != null)
                   ClassicSectionWidget(
@@ -153,41 +151,6 @@ class _ClassicPortfolioScreenState extends State<ClassicPortfolioScreen> {
           ),
         ),
       ],
-    );
-  }
-}
-
-/// Responsive card grid: three columns on desktop, two on tablet, one on
-/// phones.
-class _ProjectsGrid extends StatelessWidget {
-  final List<AppEntity> projects;
-
-  const _ProjectsGrid({required this.projects});
-
-  @override
-  Widget build(BuildContext context) {
-    return LayoutBuilder(
-      builder: (context, constraints) {
-        final width = constraints.maxWidth;
-        final columns = width >= 900 ? 3 : (width >= 600 ? 2 : 1);
-        const gap = AppSizes.spacingLg;
-        final cardWidth = (width - gap * (columns - 1)) / columns;
-
-        return Wrap(
-          spacing: gap,
-          runSpacing: gap,
-          children: [
-            for (final app in projects)
-              SizedBox(
-                width: cardWidth,
-                child: ClassicProjectCardWidget(
-                  app: app,
-                  onTap: () => showClassicProjectDetail(context, app),
-                ),
-              ),
-          ],
-        );
-      },
     );
   }
 }

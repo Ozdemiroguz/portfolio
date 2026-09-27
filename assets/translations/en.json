@@ -441,12 +441,27 @@
       "achievements": "Achievements",
       "contact": "Contact"
     },
-    "projectsSubtitle": "A selection of the products I have built and shipped.",
+    "projectsSubtitle": "Shipped apps, open source work and client projects. Filter by what interests you.",
     "careerSubtitle": "Where I have worked and what I did there.",
     "achievementsSubtitle": "Certificates, awards and milestones.",
     "contactSubtitle": "Open to new projects and collaborations. Reach out through any channel below.",
     "tryInteractive": "Try the interactive mode",
     "tryInteractiveDescription": "The same portfolio, presented as a phone you can explore. Apps, folders and a couple of games are waiting.",
-    "openPhoneMode": "Open phone mode"
+    "openPhoneMode": "Open phone mode",
+    "projects": {
+      "filterAll": "All",
+      "filterPublished": "On the stores",
+      "filterOpenSource": "Open source",
+      "filterWork": "Client & team work",
+      "liveOnStores": "LIVE",
+      "inTesting": "IN TESTING",
+      "inProgress": "IN PROGRESS",
+      "openSource": "OPEN SOURCE",
+      "caseStudy": "CASE STUDY",
+      "teamOf": "Team of {count}",
+      "apk": "Download APK",
+      "privateBuild": "Private build, details on request",
+      "swipeHint": "swipe"
+    }
   }
 }
