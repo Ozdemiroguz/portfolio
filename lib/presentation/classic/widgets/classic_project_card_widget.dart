@@ -146,7 +146,17 @@ class _ClassicProjectCardWidgetState extends State<ClassicProjectCardWidget> {
                       ),
                     ],
                   ),
-                  if (bounded) Expanded(child: ClipRect(child: body)) else body,
+                  if (bounded)
+                    // A non-scrolling scroll view gives the text block
+                    // unbounded height, so it clips instead of overflowing.
+                    Expanded(
+                      child: SingleChildScrollView(
+                        physics: const NeverScrollableScrollPhysics(),
+                        child: body,
+                      ),
+                    )
+                  else
+                    body,
                 ],
               ),
             ),
