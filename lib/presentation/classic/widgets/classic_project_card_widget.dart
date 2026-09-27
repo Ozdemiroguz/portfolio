@@ -44,7 +44,7 @@ class _ClassicProjectCardWidgetState extends State<ClassicProjectCardWidget> {
         // In the phone carousel the card gets a fixed height; keep the text
         // block from overflowing by letting it fill and clip instead.
         final bounded = constraints.hasBoundedHeight;
-        final compact = constraints.maxWidth < 340;
+        final compact = constraints.maxWidth < 300;
         final body = Padding(
           padding: const EdgeInsets.all(AppSizes.paddingLg),
           child: Column(
