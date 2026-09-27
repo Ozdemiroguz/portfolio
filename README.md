@@ -164,7 +164,11 @@ Dart SDK: >=3.9.0
    flutter test
    ```
 
-5. **Build for production**
+5. **Preview deployment**
+
+   Every push to `main` (or the active feature branch) runs `.github/workflows/deploy-preview.yml`, which analyzes, tests, builds and publishes the app to this repository's GitHub Pages site at [ozdemiroguz.github.io/portfolio](https://ozdemiroguz.github.io/portfolio/). The production site lives in a separate repository and is not touched.
+
+6. **Build for production**
    ```bash
    # Web build
    flutter build web --release --base-href "/"
